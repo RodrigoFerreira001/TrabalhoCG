@@ -69,6 +69,13 @@ void desenha_junta(){
 }
 
 void desenha_parte_cima(){
+	//desenha tronco
+	glColor3f(1.0f, 0.5f, 1.0f);
+	glTranslatef(tronco_1.get_deslocamento_x(), tronco_1.get_deslocamento_y(), tronco_1.get_deslocamento_z());
+	glPushMatrix();
+		glScalef(tronco_1.get_largura(), tronco_1.get_altura(), tronco_1.get_profundidade());
+		glutSolidCube(1.0f);
+	glPopMatrix();
 
 }
 
@@ -146,7 +153,7 @@ void Desenha(void)
 	desenha_junta();
 
 	glPushMatrix();
-		//Desenha_pra_cima();
+		desenha_parte_baixo();
 	glPopMatrix();
 
 	glPushMatrix();
