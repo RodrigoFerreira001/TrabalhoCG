@@ -31,7 +31,7 @@ Modelo pulso_e(raio_juntas);
 Modelo junta_pescoco(raio_juntas);
 
 //Partes do corpo - baixo
-Modelo quadril(8.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo quadril(8.0f, 2.0f, 2.0f, 0.0f, 0.0f, 90.0f, 0.0f, 0.0f, 0.0f);
 Modelo perna_d(20.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 Modelo perna_e(20.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 Modelo canela_d(20.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
@@ -82,6 +82,9 @@ void desenha_parte_cima(){
 void desenha_parte_baixo(){
 	//desenha o quadril
 	glColor3f(1.0f, 0.5f, 1.0f);
+	glRotatef(quadril.get_rotacao_x(), 1, 0, 0);
+	glRotatef(quadril.get_rotacao_y(), 0, 1, 0);
+	glRotatef(quadril.get_rotacao_z(), 0, 0, 1);
 	glTranslatef(quadril.get_deslocamento_x(), quadril.get_deslocamento_y(), quadril.get_deslocamento_z());
 	glPushMatrix();
 		glScalef(quadril.get_largura(), quadril.get_altura(), quadril.get_profundidade());
