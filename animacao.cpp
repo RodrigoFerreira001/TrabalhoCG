@@ -31,35 +31,35 @@ Modelo pulso_e(raio_juntas);
 Modelo junta_pescoco(raio_juntas);
 
 //Partes do corpo - baixo
-Modelo quadril(8.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo perna_d(20.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo perna_e(20.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo canela_d(20.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo canela_e(20.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo pe_d(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo pe_e(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo dedos_d(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo dedos_e(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo quadril(8.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo perna_d(20.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo perna_e(20.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo canela_d(20.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo canela_e(20.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo pe_d(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo pe_e(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo dedos_d(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo dedos_e(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
 //Partes do corpo - cima
-Modelo tronco_1(6.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo tronco_2(14.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo tronco_3(6.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo tronco_1(6.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo tronco_2(14.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo tronco_3(6.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
-Modelo pescoco(6.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo cabeca(6.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo pescoco(6.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo cabeca(6.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
-Modelo saboneteira_d(8.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo saboneteira_e(8.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo saboneteira_d(8.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo saboneteira_e(8.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
-Modelo braco_e(16.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo braco_d(16.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo braco_e(16.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo braco_d(16.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
-Modelo antebraco_e(16.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo antebraco_d(16.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo antebraco_e(16.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo antebraco_d(16.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
-Modelo mao_e(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo mao_d(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo mao_e(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo mao_d(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
 void desenha_junta(){
 	glPushMatrix();
