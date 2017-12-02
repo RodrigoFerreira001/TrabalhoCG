@@ -150,7 +150,7 @@ void Desenha(void)
 	glPopMatrix();
 
 	glPushMatrix();
-		//Desenha_pra_baixo();
+		desenha_parte_baixo();
 	glPopMatrix();
 
 	glutSwapBuffers();
