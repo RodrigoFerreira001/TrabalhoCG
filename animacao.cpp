@@ -69,13 +69,44 @@ void desenha_junta(){
 }
 
 void desenha_parte_cima(){
-	//desenha tronco
+	//desenha tronco_1
 	glColor3f(1.0f, 0.5f, 1.0f);
+	glRotatef(-90.0f, 0.0f, 0.0f, 1.0f);
 	glTranslatef(tronco_1.get_deslocamento_x(), tronco_1.get_deslocamento_y(), tronco_1.get_deslocamento_z());
 	glPushMatrix();
 		glScalef(tronco_1.get_largura(), tronco_1.get_altura(), tronco_1.get_profundidade());
 		glutSolidCube(1.0f);
 	glPopMatrix();
+
+	//desenha tronco_2
+	glColor3f(1.0f, 0.5f, 1.0f);
+	glTranslatef(tronco_2.get_deslocamento_x(), tronco_2.get_deslocamento_y(), tronco_2.get_deslocamento_z());
+	glPushMatrix();
+		glScalef(tronco_2.get_largura(), tronco_2.get_altura(), tronco_2.get_profundidade());
+		glutSolidCube(1.0f);
+	glPopMatrix();
+
+	//desenha tronco_3
+	glColor3f(1.0f, 0.5f, 1.0f);
+	glTranslatef(tronco_3.get_deslocamento_x(), tronco_3.get_deslocamento_y(), tronco_3.get_deslocamento_z());
+	glPushMatrix();
+		glScalef(tronco_3.get_largura(), tronco_3.get_altura(), tronco_3.get_profundidade());
+		glutSolidCube(1.0f);
+	glPopMatrix();
+
+	glPushMatrix();
+		//desenha pescoco
+		glColor3f(1.0f, 0.5f, 1.0f);
+		glTranslatef(pescoco.get_deslocamento_x(), pescoco.get_deslocamento_y(), pescoco.get_deslocamento_z());
+		glPushMatrix();
+			glScalef(pescoco.get_largura(), pescoco.get_altura(), pescoco.get_profundidade());
+			glutSolidCube(1.0f);
+		glPopMatrix();
+	glPopMatrix();
+
+
+
+
 
 }
 
@@ -153,7 +184,7 @@ void Desenha(void)
 	desenha_junta();
 
 	glPushMatrix();
-		desenha_parte_baixo();
+		desenha_parte_cima();
 	glPopMatrix();
 
 	glPushMatrix();
