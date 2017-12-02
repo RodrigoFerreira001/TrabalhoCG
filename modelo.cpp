@@ -7,15 +7,27 @@ Modelo::Modelo(){
 	this->rotacao = 0.0f;
 	this->deslocamento_x = 0.0f;
 	this->deslocamento_y = 0.0f;
+	this->deslocamento_z = 0.0f;
 }
 
-Modelo::Modelo(float largura, float altura, float profundidade, float rotacao, float deslocamento_x, float deslocamento_y){
+Modelo::Modelo(float largura){
+	this->largura = largura;
+	this->altura = 0.0f;
+	this->profundidade = 0.0f;
+	this->rotacao = 0.0f;
+	this->deslocamento_x = 0.0f;
+	this->deslocamento_y = 0.0f;
+	this->deslocamento_z = 0.0f;
+}
+
+Modelo::Modelo(float largura, float altura, float profundidade, float rotacao, float deslocamento_x, float deslocamento_y, float deslocamento_z){
 	this->largura = largura;
 	this->altura = altura;
 	this->profundidade = profundidade;
 	this->rotacao = rotacao;
 	this->deslocamento_x = deslocamento_x;
 	this->deslocamento_y = deslocamento_y;
+	this->deslocamento_z = deslocamento_z;
 }
 
 void Modelo::set_largura(float largura){
@@ -61,6 +73,15 @@ float Modelo::get_deslocamento_x(){
 void Modelo::set_deslocamento_y(float deslocamento_y){
 	this->deslocamento_y = deslocamento_y;
 }
+
 float Modelo::get_deslocamento_y(){
 	return this->deslocamento_y;
+}
+
+void Modelo::set_deslocamento_z(float deslocamento_z){
+	this->deslocamento_z = deslocamento_z;
+}
+
+float Modelo::get_deslocamento_z(){
+	return this->deslocamento_z;
 }
