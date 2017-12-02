@@ -10,7 +10,7 @@ private:
   float deslocamento_y;
 
 public:
-  Moledo();
+  Modelo();
   Modelo(float largura, float altura, float profundidade, float rotacao, float deslocamento_x, float deslocamento_y);
 
   void set_largura(float largura);

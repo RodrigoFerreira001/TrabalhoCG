@@ -2,7 +2,8 @@
 // "OpenGL SuperBible", 2nd Edition, de Richard S. e Wright Jr.
 
 #include <GL/glut.h>
-#include <unistd.h>     // needed to sleep
+#include <unistd.h>
+#include "modelo.hpp"     // needed to sleep
 
 
 GLfloat angle, fAspect;
