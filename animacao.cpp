@@ -42,24 +42,24 @@ Modelo dedos_d(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 Modelo dedos_e(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
 //Partes do corpo - cima
-Modelo tronco_1(6.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo tronco_2(14.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo tronco_3(6.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo tronco_1(6.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 3.0f, 0.0f, 0.0f);
+Modelo tronco_2(14.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 7.0f, 0.0f, 0.0f);
+Modelo tronco_3(6.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 3.0f, 0.0f, 0.0f);
 
-Modelo pescoco(6.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo cabeca(6.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo pescoco(6.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f, 0.0f);
+Modelo cabeca(10.0f, 10.0f, 10.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f, 0.0f);
 
-Modelo saboneteira_d(8.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo saboneteira_e(8.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo saboneteira_d(8.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 4.0f, 0.0f, 0.0f);
+Modelo saboneteira_e(8.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 4.0f, 0.0f, 0.0f);
 
-Modelo braco_e(16.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo braco_d(16.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo braco_e(2.0f, 16.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 8.0f, 0.0f);
+Modelo braco_d(2.0f, 16.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 8.0f, 0.0f);
 
-Modelo antebraco_e(16.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo antebraco_d(16.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo antebraco_e(16.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 8.0f, 0.0f, 0.0f);
+Modelo antebraco_d(16.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 8.0f, 0.0f, 0.0f);
 
-Modelo mao_e(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo mao_d(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo mao_e(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 2.0f, 0.0f, 0.0f);
+Modelo mao_d(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 2.0f, 0.0f, 0.0f);
 
 void desenha_junta(){
 	glPushMatrix();
@@ -71,12 +71,18 @@ void desenha_junta(){
 void desenha_parte_cima(){
 	//desenha tronco_1
 	glColor3f(1.0f, 0.5f, 1.0f);
-	glRotatef(-90.0f, 0.0f, 0.0f, 1.0f);
 	glTranslatef(tronco_1.get_deslocamento_x(), tronco_1.get_deslocamento_y(), tronco_1.get_deslocamento_z());
 	glPushMatrix();
 		glScalef(tronco_1.get_largura(), tronco_1.get_altura(), tronco_1.get_profundidade());
 		glutSolidCube(1.0f);
 	glPopMatrix();
+
+	//desenha a espinha_d_1
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glTranslatef(tronco_1.get_deslocamento_x(), tronco_1.get_deslocamento_y(), tronco_1.get_deslocamento_z());
+	glRotatef(0.0f, 0.0f, 0.0f, 0.0f);
+	desenha_junta();
+
 
 	//desenha tronco_2
 	glColor3f(1.0f, 0.5f, 1.0f);
@@ -86,6 +92,12 @@ void desenha_parte_cima(){
 		glutSolidCube(1.0f);
 	glPopMatrix();
 
+	//desenha a espinha_d_2
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glTranslatef(tronco_2.get_deslocamento_x(), tronco_2.get_deslocamento_y(), tronco_2.get_deslocamento_z());
+	glRotatef(0.0f, 0.0f, 0.0f, 0.0f);
+	desenha_junta();
+
 	//desenha tronco_3
 	glColor3f(1.0f, 0.5f, 1.0f);
 	glTranslatef(tronco_3.get_deslocamento_x(), tronco_3.get_deslocamento_y(), tronco_3.get_deslocamento_z());
@@ -93,6 +105,12 @@ void desenha_parte_cima(){
 		glScalef(tronco_3.get_largura(), tronco_3.get_altura(), tronco_3.get_profundidade());
 		glutSolidCube(1.0f);
 	glPopMatrix();
+
+	//desenha a espinha_d_3
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glTranslatef(tronco_3.get_deslocamento_x(), tronco_3.get_deslocamento_y(), tronco_3.get_deslocamento_z());
+	glRotatef(0.0f, 0.0f, 0.0f, 0.0f);
+	desenha_junta();
 
 	glPushMatrix();
 		//desenha pescoco
@@ -102,7 +120,132 @@ void desenha_parte_cima(){
 			glScalef(pescoco.get_largura(), pescoco.get_altura(), pescoco.get_profundidade());
 			glutSolidCube(1.0f);
 		glPopMatrix();
+
+		//desenha junta_pescoco
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glTranslatef(pescoco.get_deslocamento_x(), pescoco.get_deslocamento_y(), pescoco.get_deslocamento_z());
+		glRotatef(0.0f, 0.0f, 1.0f, 0.0f);
+		desenha_junta();
+
+		//desenha cabeca
+		glColor3f(1.0f, 0.5f, 1.0f);
+		glTranslatef(cabeca.get_deslocamento_x(), cabeca.get_deslocamento_y(), cabeca.get_deslocamento_z());
+		glPushMatrix();
+			glScalef(cabeca.get_largura(), cabeca.get_altura(), cabeca.get_profundidade());
+			glutSolidCube(1.0f);
+		glPopMatrix();
+
 	glPopMatrix();
+
+	glPushMatrix();
+		//desenha saboneteira_d
+		glColor3f(1.0f, 0.5f, 1.0f);
+		glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
+		glTranslatef(saboneteira_d.get_deslocamento_x(), saboneteira_d.get_deslocamento_y(), saboneteira_d.get_deslocamento_z());
+		glPushMatrix();
+			glScalef(saboneteira_d.get_largura(), saboneteira_d.get_altura(), saboneteira_d.get_profundidade());
+			glutSolidCube(1.0f);
+		glPopMatrix();
+
+		//desenha a ombro_d
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glTranslatef(saboneteira_d.get_deslocamento_x(), saboneteira_d.get_deslocamento_y(), saboneteira_d.get_deslocamento_z());
+		glRotatef(0.0f, 0.0f, 0.0f, 0.0f);
+		desenha_junta();
+
+		//desenha braco_d
+		glColor3f(1.0f, 0.5f, 1.0f);
+		glTranslatef(braco_d.get_deslocamento_x(), braco_d.get_deslocamento_y(), braco_d.get_deslocamento_z());
+		glPushMatrix();
+			glScalef(braco_d.get_largura(), braco_d.get_altura(), braco_d.get_profundidade());
+			glutSolidCube(1.0f);
+		glPopMatrix();
+
+		//desenha a cotovelo_d
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glTranslatef(braco_d.get_deslocamento_x(), braco_d.get_deslocamento_y(), braco_d.get_deslocamento_z());
+		glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
+		desenha_junta();
+
+		//desenha antebraco_d
+		glColor3f(1.0f, 0.5f, 1.0f);
+		glTranslatef(antebraco_d.get_deslocamento_x(), antebraco_d.get_deslocamento_y(), antebraco_d.get_deslocamento_z());
+		glPushMatrix();
+			glScalef(antebraco_d.get_largura(), antebraco_d.get_altura(), antebraco_d.get_profundidade());
+			glutSolidCube(1.0f);
+		glPopMatrix();
+
+		//desenha a punho
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glTranslatef(antebraco_d.get_deslocamento_x(), antebraco_d.get_deslocamento_y(), antebraco_d.get_deslocamento_z());
+		glRotatef(0.0f, 0.0f, 0.0f, 0.0f);
+		desenha_junta();
+
+		//desenha mao_d
+		glColor3f(1.0f, 0.5f, 1.0f);
+		glTranslatef(mao_d.get_deslocamento_x(), mao_d.get_deslocamento_y(), mao_d.get_deslocamento_z());
+		glPushMatrix();
+			glScalef(mao_d.get_largura(), mao_d.get_altura(), mao_d.get_profundidade());
+			glutSolidCube(1.0f);
+		glPopMatrix();
+
+	glPopMatrix();
+
+	glPushMatrix();
+	//desenha saboneteira_d
+	glColor3f(1.0f, 0.5f, 1.0f);
+	glRotatef(-90.0f, 0.0f, 0.0f, 1.0f);
+	glTranslatef(saboneteira_e.get_deslocamento_x(), saboneteira_e.get_deslocamento_y(), saboneteira_e.get_deslocamento_z());
+	glPushMatrix();
+		glScalef(saboneteira_e.get_largura(), saboneteira_e.get_altura(), saboneteira_e.get_profundidade());
+		glutSolidCube(1.0f);
+	glPopMatrix();
+
+	//desenha a ombro_d
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glTranslatef(saboneteira_e.get_deslocamento_x(), saboneteira_e.get_deslocamento_y(), saboneteira_e.get_deslocamento_z());
+	glRotatef(-180.0f, 0.0f, 0.0f, 1.0f);
+	desenha_junta();
+
+	//desenha braco_d
+	glColor3f(1.0f, 0.5f, 1.0f);
+	glTranslatef(braco_e.get_deslocamento_x(), braco_e.get_deslocamento_y(), braco_e.get_deslocamento_z());
+	glPushMatrix();
+		glScalef(braco_e.get_largura(), braco_e.get_altura(), braco_e.get_profundidade());
+		glutSolidCube(1.0f);
+	glPopMatrix();
+
+	//desenha a cotovelo_d
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glTranslatef(braco_e.get_deslocamento_x(), braco_e.get_deslocamento_y(), braco_e.get_deslocamento_z());
+	glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
+	desenha_junta();
+
+	//desenha antebraco_d
+	glColor3f(1.0f, 0.5f, 1.0f);
+	glTranslatef(antebraco_e.get_deslocamento_x(), antebraco_e.get_deslocamento_y(), antebraco_e.get_deslocamento_z());
+	glPushMatrix();
+		glScalef(antebraco_e.get_largura(), antebraco_e.get_altura(), antebraco_e.get_profundidade());
+		glutSolidCube(1.0f);
+	glPopMatrix();
+
+	//desenha a punho
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glTranslatef(antebraco_e.get_deslocamento_x(), antebraco_e.get_deslocamento_y(), antebraco_e.get_deslocamento_z());
+	glRotatef(0.0f, 0.0f, 0.0f, 0.0f);
+	desenha_junta();
+
+	//desenha mao_d
+	glColor3f(1.0f, 0.5f, 1.0f);
+	glTranslatef(mao_e.get_deslocamento_x(), mao_e.get_deslocamento_y(), mao_e.get_deslocamento_z());
+	glPushMatrix();
+		glScalef(mao_e.get_largura(), mao_e.get_altura(), mao_e.get_profundidade());
+		glutSolidCube(1.0f);
+	glPopMatrix();
+
+	glPopMatrix();
+
+
 
 
 
@@ -293,7 +436,8 @@ void Desenha(void)
 	desenha_junta();
 
 	glPushMatrix();
-		//desenha_parte_cima();
+		glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
+		desenha_parte_cima();
 	glPopMatrix();
 
 	glPushMatrix();
