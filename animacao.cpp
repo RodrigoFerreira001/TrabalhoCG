@@ -31,7 +31,7 @@ Modelo pulso_e(raio_juntas);
 Modelo junta_pescoco(raio_juntas);
 
 //Partes do corpo - baixo
-Modelo quadril(8.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo quadril(10.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 Modelo perna_d(20.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 Modelo perna_e(20.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 Modelo canela_d(20.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
@@ -250,7 +250,6 @@ void desenha_parte_cima(){
 
 
 
-
 }
 
 void desenha_parte_baixo(){
@@ -263,14 +262,142 @@ void desenha_parte_baixo(){
 	glPopMatrix();
 
 	//desenha a virilha_d
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glTranslatef(cintura.get_deslocamento_x(), cintura.get_deslocamento_y(), cintura.get_deslocamento_z());
-	desenha_junta();
+	glPushMatrix();
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glTranslatef(quadril.get_largura() / 2, 0.0f, 0.0f);
+		glRotatef(virilha_d.get_rotacao_x(), 1, 0, 0);
+		glRotatef(virilha_d.get_rotacao_y(), 0, 1, 0);
+		glRotatef(virilha_d.get_rotacao_z(), 0, 0, 1);
+		desenha_junta();
 
-		//desenha a virilha_e
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glTranslatef(cintura.get_deslocamento_x(), cintura.get_deslocamento_y(), cintura.get_deslocamento_z());
-	desenha_junta();
+		//desenha perna
+		glColor3f(1.0f, 0.5f, 1.0f);
+		glTranslatef(perna_d.get_largura() / 2, 0.0f, 0.0f);
+		glPushMatrix();
+			glScalef(perna_d.get_largura(), perna_d.get_altura(), perna_d.get_profundidade());
+			glutSolidCube(1.0f);
+		glPopMatrix();
+
+		//desenha o joelho direito
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glTranslatef(perna_d.get_largura() / 2, 0.0f, 0.0f);
+		glRotatef(joelho_d.get_rotacao_x(), 1, 0, 0);
+		glRotatef(joelho_d.get_rotacao_y(), 0, 1, 0);
+		glRotatef(joelho_d.get_rotacao_z(), 0, 0, 1);
+		desenha_junta();
+
+		//desenha canela direita
+		glColor3f(1.0f, 0.5f, 1.0f);
+		glTranslatef(canela_d.get_largura() / 2, 0.0f, 0.0f);
+		glPushMatrix();
+			glScalef(canela_d.get_largura(), canela_d.get_altura(), canela_d.get_profundidade());
+			glutSolidCube(1.0f);
+		glPopMatrix();
+
+		//desenha o tornozelo direito
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glTranslatef(canela_d.get_largura() / 2, 0.0f, 0.0f);
+		glRotatef(tornozelo_d.get_rotacao_x(), 1, 0, 0);
+		glRotatef(tornozelo_d.get_rotacao_y(), 0, 1, 0);
+		glRotatef(tornozelo_d.get_rotacao_z(), 0, 0, 1);
+		desenha_junta();
+
+		//desenha pe direita
+		glColor3f(1.0f, 0.5f, 1.0f);
+		glTranslatef(pe_d.get_largura() / 2, 0.0f, 0.0f);
+		glPushMatrix();
+			glScalef(pe_d.get_largura(), pe_d.get_altura(), pe_d.get_profundidade());
+			glutSolidCube(1.0f);
+		glPopMatrix();
+
+		//desenha o ponta pe direito
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glTranslatef(pe_d.get_largura() / 2, 0.0f, 0.0f);
+		glRotatef(ponta_pe_d.get_rotacao_x(), 1, 0, 0);
+		glRotatef(ponta_pe_d.get_rotacao_y(), 0, 1, 0);
+		glRotatef(ponta_pe_d.get_rotacao_z(), 0, 0, 1);
+		desenha_junta();
+
+		//desenha dedos direita
+		glColor3f(1.0f, 0.5f, 1.0f);
+		glTranslatef(dedos_d.get_largura() / 2, 0.0f, 0.0f);
+		glPushMatrix();
+			glScalef(dedos_d.get_largura(), dedos_d.get_altura(), dedos_d.get_profundidade());
+			glutSolidCube(1.0f);
+		glPopMatrix();
+
+
+
+
+
+	glPopMatrix();
+
+	//desenha a virilha_e
+	glPushMatrix();
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glTranslatef(-(quadril.get_largura() / 2), 0.0f, 0.0f);
+		glRotatef(virilha_e.get_rotacao_x(), 1, 0, 0);
+		glRotatef(virilha_e.get_rotacao_y(), 0, 1, 0);
+		glRotatef(virilha_e.get_rotacao_z(), 0, 0, 1);
+		desenha_junta();
+
+		// //desenha esquerda
+		glColor3f(1.0f, 0.5f, 1.0f);
+		glTranslatef(perna_e.get_largura() / 2, 0.0f, 0.0f);
+		glPushMatrix();
+			glScalef(perna_e.get_largura(), perna_e.get_altura(), perna_e.get_profundidade());
+			glutSolidCube(1.0f);
+		glPopMatrix();
+
+		//desenha o joelho esquerdo
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glTranslatef(perna_e.get_largura() / 2, 0.0f, 0.0f);
+		glRotatef(joelho_e.get_rotacao_x(), 1, 0, 0);
+		glRotatef(joelho_e.get_rotacao_y(), 0, 1, 0);
+		glRotatef(joelho_e.get_rotacao_z(), 0, 0, 1);
+		desenha_junta();
+
+		//desenha canela esquerda
+		glColor3f(1.0f, 0.5f, 1.0f);
+		glTranslatef(canela_e.get_largura() / 2, 0.0f, 0.0f);
+		glPushMatrix();
+			glScalef(canela_e.get_largura(), canela_e.get_altura(), canela_e.get_profundidade());
+			glutSolidCube(1.0f);
+		glPopMatrix();
+
+		//desenha o tornozelo esquerdo
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glTranslatef(canela_e.get_largura() / 2, 0.0f, 0.0f);
+		glRotatef(tornozelo_e.get_rotacao_x(), 1, 0, 0);
+		glRotatef(tornozelo_e.get_rotacao_y(), 0, 1, 0);
+		glRotatef(tornozelo_e.get_rotacao_z(), 0, 0, 1);
+		desenha_junta();
+
+		//desenha pe esquerdo
+		glColor3f(1.0f, 0.5f, 1.0f);
+		glTranslatef(pe_e.get_largura() / 2, 0.0f, 0.0f);
+		glPushMatrix();
+			glScalef(pe_e.get_largura(), pe_e.get_altura(), pe_e.get_profundidade());
+			glutSolidCube(1.0f);
+		glPopMatrix();
+
+		//desenha o ponta pe direito
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glTranslatef(pe_e.get_largura() / 2, 0.0f, 0.0f);
+		glRotatef(ponta_pe_e.get_rotacao_x(), 1, 0, 0);
+		glRotatef(ponta_pe_e.get_rotacao_y(), 0, 1, 0);
+		glRotatef(ponta_pe_e.get_rotacao_z(), 0, 0, 1);
+		desenha_junta();
+
+		//desenha dedos direita
+		glColor3f(1.0f, 0.5f, 1.0f);
+		glTranslatef(dedos_e.get_largura() / 2, 0.0f, 0.0f);
+		glPushMatrix();
+			glScalef(dedos_e.get_largura(), dedos_e.get_altura(), dedos_e.get_profundidade());
+			glutSolidCube(1.0f);
+		glPopMatrix();
+
+	glPopMatrix();
 }
 
 
@@ -302,24 +429,6 @@ void Desenha(void)
 	// Limpa a janela e o depth buffer
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
-	// //desenha base
-	// glColor3f(0.0f, 0.3f, 1.0f);
-	// glPushMatrix();
-	// 	glScalef(base_l, base_a, base_p);
-	// 	glutSolidCube(1.0f);
-	// glPopMatrix();
-    //
-	// //desenha a 1ª junta
-	// glColor3f(0.7f, 0.7f, 0.7f);
-	// glTranslatef(0.0f, (base_a / 2) + (junta_r / 2), 0.0f);
-	// glRotatef(r_junta1_x, 1.0, 0.0f, 0.0);
-	// glRotatef(r_junta1_y, 0.0, 1.0f, 0.0f);
-	// glRotatef(r_junta1_z, 0.0, 0.0f, 1.0f);
-	// glPushMatrix();
-	// 	glScalef(junta_r, junta_r, junta_r);
-	// 	glutSolidSphere(1.0f, 10, 10);
-	// glPopMatrix();
 
 	//desenha a cintura
 	glColor3f(1.0f, 1.0f, 1.0f);
@@ -428,112 +537,25 @@ void GerenciaMouse(int button, int state, int x, int y)
 
 void keyBoardfunc(unsigned char key, int x, int y){
 
-	// usleep(100);
-    //
-	// //Roda Base
-	// if(key == 122){
-	// 	rotation_base += 3;
-	// 	if(rotation_base > 360.0f){
-	// 		rotation_base = 0.0f;
-	// 	}
-	// }else
-	// if(key == 120){
-	// 	rotation_base -= 3;
-	// 	if(rotation_base < 0.0f){
-	// 		rotation_base = 360.0f;
-	// 	}
-	// }
-    //
-    //
-	// //Roda 1ª junta
-	// if(key == 97){
-	// 	r_junta1_y += 3;
-	// 	if(r_junta1_y > 180.0f){
-	// 		r_junta1_y = 180.0f;
-	// 	}
-	// }else
-	// if(key == 100){
-	// 	r_junta1_y -= 3;
-	// 	if(r_junta1_y < 0.0f){
-	// 		r_junta1_y = 0.0f;
-	// 	}
-	// }else
-	// if(key == 119){
-	// 	r_junta1_z += 3;
-	// 	if(r_junta1_z > 45.0f){
-	// 		r_junta1_z = 45.0f;
-	// 	}
-	// }else
-	// if(key == 115){
-	// 	r_junta1_z -= 3;
-	// 	if(r_junta1_z < 0.0f){
-	// 		r_junta1_z = 0.0f;
-	// 	}
-	// }
-    //
-    //
-	// //Roda 2ª junta
-	// if(key == 102){
-	// 	r_junta2_y += 3;
-	// 	if(r_junta2_y > 180.0f){
-	// 		r_junta2_y = 180.0f;
-	// 	}
-	// }else
-	// if(key == 104){
-	// 	r_junta2_y -= 3;
-	// 	if(r_junta2_y < 0.0f){
-	// 		r_junta2_y = 0.0f;
-	// 	}
-	// }else
-	// if(key == 116){
-	// 	r_junta2_z += 3;
-	// 	if(r_junta2_z > 45.0f){
-	// 		r_junta2_z = 45.0f;
-	// 	}
-	// }else
-	// if(key == 103){
-	// 	r_junta2_z -= 3;
-	// 	if(r_junta2_z < 0.0f){
-	// 		r_junta2_z = 0.0f;
-	// 	}
-	// }
-    //
-	// //Roda 3ª junta
-	// if(key == 113){
-	// 	r_junta3_y += 3;
-	// 	if(r_junta3_y > 180.0f){
-	// 		r_junta3_y = 180.0f;
-	// 	}
-	// }else
-	// if(key == 101){
-	// 	r_junta3_y -= 3;
-	// 	if(r_junta3_y < 0.0f){
-	// 		r_junta3_y = 0.0f;
-	// 	}
-	// }
-    //
-	// //Abre e fecha mãos
-	// if(key == 114){
-	// 	abertura_dedo += 1;
-	// 	if(abertura_dedo > 3.0f){
-	// 		abertura_dedo = 3.0f;
-	// 	}
-	// }else
-	// if(key == 121){
-	// 	abertura_dedo -= 1;
-	// 	if(abertura_dedo < 0.0f){
-	// 		abertura_dedo = 0.0f;
-	// 	}
-	// }
-    //
-    //
-    //
-	// glutPostRedisplay();
+	usleep(100);
+
+	if(key == 100){
+		cintura.set_deslocamento_y(cintura.get_deslocamento_y() + 3);
+	}
+
+	glutPostRedisplay();
 }
 
 // Programa Principal
 int main(int argc, char** argv)
 {
+
+	virilha_d.set_rotacao_z(-90.0f);
+	virilha_e.set_rotacao_z(-90.0f);
+
+	tornozelo_d.set_rotacao_y(-90.0f);
+	tornozelo_e.set_rotacao_y(-90.0f);
+
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(640,480);
