@@ -1273,30 +1273,354 @@ void keyBoardfunc(unsigned char key, int x, int y){
 
 	if(SHIFT){
 		cout << "SHIFT + " << int(key) << endl;
-		// if(key == 0){
-		// 	cintura.set_rotacao_x(cintura.get_rotacao_x() + 3)
-		// }else
-		// if(key == 0){
-		// 	cintura.set_rotacao_x(cintura.get_rotacao_x() - 3)
-		// }
+		if(key == 33){
+			cintura.set_rotacao_x(cintura.get_rotacao_x() + 3)
+		}else
+		if(key == 81){
+			cintura.set_rotacao_x(cintura.get_rotacao_x() - 3)
+		}else
+		if(key == 64){
+			virilha_d.set_rotacao_x(virilha_d.get_rotacao_x() + 3)
+		}else
+		if(key == 87){
+			virilha_d.set_rotacao_x(virilha_d.get_rotacao_x() - 3)
+		}else
+		if(key == 35){
+			virilha_e.set_rotacao_x(virilha_e.get_rotacao_x() + 3)
+		}else
+		if(key == 69){
+			virilha_e.set_rotacao_x(virilha_e.get_rotacao_x() - 3)
+		}else
+		if(key == 36){
+			joelho_d.set_rotacao_x(joelho_d.get_rotacao_x() + 3)
+		}else
+		if(key == 82){
+			joelho_d.set_rotacao_x(joelho_d.get_rotacao_x() - 3)
+		}else
+		if(key == 37){
+			joelho_e.set_rotacao_x(joelho_e.get_rotacao_x() + 3)
+		}else
+		if(key == 84){
+			joelho_e.set_rotacao_x(joelho_e.get_rotacao_x() - 3)
+		}else
+		if(key == 168){
+			tornozelo_d.set_rotacao_x(tornozelo_d.get_rotacao_x() + 3)
+		}else
+		if(key == 89){
+			tornozelo_d.set_rotacao_x(tornozelo_d.get_rotacao_x() - 3)
+		}else
+		if(key == 38){
+			tornozelo_e.set_rotacao_x(tornozelo_e.get_rotacao_x() + 3)
+		}else
+		if(key == 85){
+			tornozelo_e.set_rotacao_x(tornozelo_e.get_rotacao_x() - 3)
+		}else
+		if(key == 42){
+			ponta_pe_d.set_rotacao_x(ponta_pe_d.get_rotacao_x() + 3)
+		}else
+		if(key == 73){
+			ponta_pe_d.set_rotacao_x(ponta_pe_d.get_rotacao_x() - 3)
+		}else
+		if(key == 40){
+			ponta_pe_e.set_rotacao_x(ponta_pe_e.get_rotacao_x() + 3)
+		}else
+		if(key == 79){
+			ponta_pe_e.set_rotacao_x(ponta_pe_e.get_rotacao_x() - 3)
+		}else
+		if(key == 41){
+			espinha_d_1.set_rotacao_x(espinha_d_1.get_rotacao_x() + 3)
+		}else
+		if(key == 80){
+			espinha_d_1.set_rotacao_x(espinha_d_1.get_rotacao_x() - 3)
+		}else
+		if(key == 95){
+			espinha_d_2.set_rotacao_x(espinha_d_2.get_rotacao_x() + 3)
+		}else
+		if(key == 96){
+			espinha_d_2.set_rotacao_x(espinha_d_2.get_rotacao_x() - 3)
+		}else
+		if(key == 43){
+			espinha_d_3.set_rotacao_x(espinha_d_3.get_rotacao_x() + 3)
+		}else
+		if(key == 123){
+			espinha_d_3.set_rotacao_x(espinha_d_3.get_rotacao_x() - 3)
+		}else
+		if(key == 65){
+			ombro_d.set_rotacao_x(ombro_d.get_rotacao_x() + 3)
+		}else
+		if(key == 90){
+			ombro_d.set_rotacao_x(ombro_d.get_rotacao_x() - 3)
+		}else
+		if(key == 83){
+			ombro_e.set_rotacao_x(ombro_e.get_rotacao_x() + 3)
+		}else
+		if(key == 88){
+			ombro_e.set_rotacao_x(ombro_e.get_rotacao_x() - 3)
+		}else
+		if(key == 68){
+			cotovelo_d.set_rotacao_x(cotovelo_d.get_rotacao_x() + 3)
+		}else
+		if(key == 67){
+			cotovelo_d.set_rotacao_x(cotovelo_d.get_rotacao_x() - 3)
+		}else
+		if(key == 70){
+			cotovelo_e.set_rotacao_x(cotovelo_e.get_rotacao_x() + 3)
+		}else
+		if(key == 86){
+			cotovelo_e.set_rotacao_x(cotovelo_e.get_rotacao_x() - 3)
+		}else
+		if(key == 71){
+			pulso_d.set_rotacao_x(pulso_d.get_rotacao_x() + 3)
+		}else
+		if(key == 66){
+			pulso_d.set_rotacao_x(pulso_d.get_rotacao_x() - 3)
+		}else
+		if(key == 72){
+			pulso_e.set_rotacao_x(pulso_e.get_rotacao_x() + 3)
+		}else
+		if(key == 78){
+			pulso_e.set_rotacao_x(pulso_e.get_rotacao_x() - 3)
+		}else
+		if(key == 74){
+			junta_pescoco.set_rotacao_x(junta_pescoco.get_rotacao_x() + 3)
+		}else
+		if(key == 77){
+			junta_pescoco.set_rotacao_x(junta_pescoco.get_rotacao_x() - 3)
+		}
 	}else
 	if(CTRL){
 		cout << "CTRL + " << int(key) << endl;
-		// if(key == 0){
-		// 	cintura.set_rotacao_y(cintura.get_rotacao_y() + 3)
-		// }else
-		// if(key == 0){
-		// 	cintura.set_rotacao_y(cintura.get_rotacao_y() - 3)
-		// }
+		if(key == 47){
+		  cintura.set_rotacao_y(cintura.get_rotacao_y() + 3)
+		}else
+		if(key == 17){
+		  cintura.set_rotacao_y(cintura.get_rotacao_y() - 3)
+		}else
+		if(key == 0){
+		  virilha_d.set_rotacao_y(virilha_d.get_rotacao_y() + 3)
+		}else
+		if(key == 23){
+		  virilha_d.set_rotacao_y(virilha_d.get_rotacao_y() - 3)
+		}else
+		if(key == 27){
+		  virilha_e.set_rotacao_y(virilha_e.get_rotacao_y() + 3)
+		}else
+		if(key == 5){
+		  virilha_e.set_rotacao_y(virilha_e.get_rotacao_y() - 3)
+		}else
+		if(key == 28){
+		  joelho_d.set_rotacao_y(joelho_d.get_rotacao_y() + 3)
+		}else
+		if(key == 18){
+		  joelho_d.set_rotacao_y(joelho_d.get_rotacao_y() - 3)
+		}else
+		if(key == 29){
+		  joelho_e.set_rotacao_y(joelho_e.get_rotacao_y() + 3)
+		}else
+		if(key == 20){
+		  joelho_e.set_rotacao_y(joelho_e.get_rotacao_y() - 3)
+		}else
+		if(key == 30){
+		  tornozelo_d.set_rotacao_y(tornozelo_d.get_rotacao_y() + 3)
+		}else
+		if(key == 25){
+		  tornozelo_d.set_rotacao_y(tornozelo_d.get_rotacao_y() - 3)
+		}else
+		if(key == 31){
+		  tornozelo_e.set_rotacao_y(tornozelo_e.get_rotacao_y() + 3)
+		}else
+		if(key == 21){
+		  tornozelo_e.set_rotacao_y(tornozelo_e.get_rotacao_y() - 3)
+		}else
+		if(key == 127){
+		  ponta_pe_d.set_rotacao_y(ponta_pe_d.get_rotacao_y() + 3)
+		}else
+		if(key == 9){
+		  ponta_pe_d.set_rotacao_y(ponta_pe_d.get_rotacao_y() - 3)
+		}else
+		if(key == 57){
+		  ponta_pe_e.set_rotacao_y(ponta_pe_e.get_rotacao_y() + 3)
+		}else
+		if(key == 15){
+		  ponta_pe_e.set_rotacao_y(ponta_pe_e.get_rotacao_y() - 3)
+		}else
+		if(key == 48){
+		  espinha_d_1.set_rotacao_y(espinha_d_1.get_rotacao_y() + 3)
+		}else
+		if(key == 16){
+		  espinha_d_1.set_rotacao_y(espinha_d_1.get_rotacao_y() - 3)
+		}else
+		if(key == 45){
+		  espinha_d_2.set_rotacao_y(espinha_d_2.get_rotacao_y() + 3)
+		}else
+		if(key == 27){
+		  espinha_d_2.set_rotacao_y(espinha_d_2.get_rotacao_y() - 3)
+		}else
+		if(key == 61){
+		  espinha_d_3.set_rotacao_y(espinha_d_3.get_rotacao_y() + 3)
+		}else
+		if(key == 27){
+		  espinha_d_3.set_rotacao_y(espinha_d_3.get_rotacao_y() - 3)
+		}else
+		if(key == 1){
+		  ombro_d.set_rotacao_y(ombro_d.get_rotacao_y() + 3)
+		}else
+		if(key == 26){
+		  ombro_d.set_rotacao_y(ombro_d.get_rotacao_y() - 3)
+		}else
+		if(key == 19){
+		  ombro_e.set_rotacao_y(ombro_e.get_rotacao_y() + 3)
+		}else
+		if(key == 24){
+		  ombro_e.set_rotacao_y(ombro_e.get_rotacao_y() - 3)
+		}else
+		if(key == 4){
+		  cotovelo_d.set_rotacao_y(cotovelo_d.get_rotacao_y() + 3)
+		}else
+		if(key == 3){
+		  cotovelo_d.set_rotacao_y(cotovelo_d.get_rotacao_y() - 3)
+		}else
+		if(key == 6){
+		  cotovelo_e.set_rotacao_y(cotovelo_e.get_rotacao_y() + 3)
+		}else
+		if(key == 22){
+		  cotovelo_e.set_rotacao_y(cotovelo_e.get_rotacao_y() - 3)
+		}else
+		if(key == 7){
+		  pulso_d.set_rotacao_y(pulso_d.get_rotacao_y() + 3)
+		}else
+		if(key == 2){
+		  pulso_d.set_rotacao_y(pulso_d.get_rotacao_y() - 3)
+		}else
+		if(key == 8){
+		  pulso_e.set_rotacao_y(pulso_e.get_rotacao_y() + 3)
+		}else
+		if(key == 14){
+		  pulso_e.set_rotacao_y(pulso_e.get_rotacao_y() - 3)
+		}else
+		if(key == 10){
+		  junta_pescoco.set_rotacao_y(junta_pescoco.get_rotacao_y() + 3)
+		}else
+		if(key == 13){
+		  junta_pescoco.set_rotacao_y(junta_pescoco.get_rotacao_y() - 3)
+		}
 	}else
 	if(ALT){
 		cout << "ALT + " << int(key) << endl;
-		// if(key == 0){
-		// 	cintura.set_rotacao_z(cintura.get_rotacao_z() + 3)
-		// }else
-		// if(key == 0){
-		// 	cintura.set_rotacao_z(cintura.get_rotacao_z() - 3)
-		// }
+		if(key == 49){
+		  cintura.set_rotacao_z(cintura.get_rotacao_z() + 3)
+		}else
+		if(key == 113){
+		  cintura.set_rotacao_z(cintura.get_rotacao_z() - 3)
+		}else
+		if(key == 50){
+		  virilha_d.set_rotacao_z(virilha_d.get_rotacao_z() + 3)
+		}else
+		if(key == 119){
+		  virilha_d.set_rotacao_z(virilha_d.get_rotacao_z() - 3)
+		}else
+		if(key == 51){
+		  virilha_e.set_rotacao_z(virilha_e.get_rotacao_z() + 3)
+		}else
+		if(key == 101){
+		  virilha_e.set_rotacao_z(virilha_e.get_rotacao_z() - 3)
+		}else
+		if(key == 52){
+		  joelho_d.set_rotacao_z(joelho_d.get_rotacao_z() + 3)
+		}else
+		if(key == 114){
+		  joelho_d.set_rotacao_z(joelho_d.get_rotacao_z() - 3)
+		}else
+		if(key == 53){
+		  joelho_e.set_rotacao_z(joelho_e.get_rotacao_z() + 3)
+		}else
+		if(key == 116){
+		  joelho_e.set_rotacao_z(joelho_e.get_rotacao_z() - 3)
+		}else
+		if(key == 54){
+		  tornozelo_d.set_rotacao_z(tornozelo_d.get_rotacao_z() + 3)
+		}else
+		if(key == 121){
+		  tornozelo_d.set_rotacao_z(tornozelo_d.get_rotacao_z() - 3)
+		}else
+		if(key == 55){
+		  tornozelo_e.set_rotacao_z(tornozelo_e.get_rotacao_z() + 3)
+		}else
+		if(key == 117){
+		  tornozelo_e.set_rotacao_z(tornozelo_e.get_rotacao_z() - 3)
+		}else
+		if(key == 56){
+		  ponta_pe_d.set_rotacao_z(ponta_pe_d.get_rotacao_z() + 3)
+		}else
+		if(key == 105){
+		  ponta_pe_d.set_rotacao_z(ponta_pe_d.get_rotacao_z() - 3)
+		}else
+		if(key == 57){
+		  ponta_pe_e.set_rotacao_z(ponta_pe_e.get_rotacao_z() + 3)
+		}else
+		if(key == 111){
+		  ponta_pe_e.set_rotacao_z(ponta_pe_e.get_rotacao_z() - 3)
+		}else
+		if(key == 48){
+		  espinha_d_1.set_rotacao_z(espinha_d_1.get_rotacao_z() + 3)
+		}else
+		if(key == 112){
+		  espinha_d_1.set_rotacao_z(espinha_d_1.get_rotacao_z() - 3)
+		}else
+		if(key == 45){
+		  espinha_d_2.set_rotacao_z(espinha_d_2.get_rotacao_z() + 3)
+		}else
+		if(key == 180){
+		  espinha_d_2.set_rotacao_z(espinha_d_2.get_rotacao_z() - 3)
+		}else
+		if(key == 61){
+		  espinha_d_3.set_rotacao_z(espinha_d_3.get_rotacao_z() + 3)
+		}else
+		if(key == 91){
+		  espinha_d_3.set_rotacao_z(espinha_d_3.get_rotacao_z() - 3)
+		}else
+		if(key == 97){
+		  ombro_d.set_rotacao_z(ombro_d.get_rotacao_z() + 3)
+		}else
+		if(key == 122){
+		  ombro_d.set_rotacao_z(ombro_d.get_rotacao_z() - 3)
+		}else
+		if(key == 115){
+		  ombro_e.set_rotacao_z(ombro_e.get_rotacao_z() + 3)
+		}else
+		if(key == 120){
+		  ombro_e.set_rotacao_z(ombro_e.get_rotacao_z() - 3)
+		}else
+		if(key == 100){
+		  cotovelo_d.set_rotacao_z(cotovelo_d.get_rotacao_z() + 3)
+		}else
+		if(key == 99){
+		  cotovelo_d.set_rotacao_z(cotovelo_d.get_rotacao_z() - 3)
+		}else
+		if(key == 102){
+		  cotovelo_e.set_rotacao_z(cotovelo_e.get_rotacao_z() + 3)
+		}else
+		if(key == 118){
+		  cotovelo_e.set_rotacao_z(cotovelo_e.get_rotacao_z() - 3)
+		}else
+		if(key == 103){
+		  pulso_d.set_rotacao_z(pulso_d.get_rotacao_z() + 3)
+		}else
+		if(key == 98){
+		  pulso_d.set_rotacao_z(pulso_d.get_rotacao_z() - 3)
+		}else
+		if(key == 104){
+		  pulso_e.set_rotacao_z(pulso_e.get_rotacao_z() + 3)
+		}else
+		if(key == 110){
+		  pulso_e.set_rotacao_z(pulso_e.get_rotacao_z() - 3)
+		}else
+		if(key == 106){
+		  junta_pescoco.set_rotacao_z(junta_pescoco.get_rotacao_z() + 3)
+		}else
+		if(key == 109){
+		  junta_pescoco.set_rotacao_z(junta_pescoco.get_rotacao_z() - 3)
+		}
 	}else{
 
 	}
