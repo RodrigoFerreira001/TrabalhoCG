@@ -1267,20 +1267,42 @@ void keyBoardSpecialUpfunc(int key, int x, int y){
 
 void keyBoardfunc(unsigned char key, int x, int y){
 
-
-	cout << "KF " << int(key) << endl;
-
 	usleep(100);
 
 	if(SHIFT){
-		cout << "######### SHIFT #############" << endl;
+		cout << "SHIFT + " << int(key) << endl;
+		// if(key == 0){
+		// 	cintura.set_rotacao_x(cintura.get_rotacao_x() + 3)
+		// }else
+		// if(key == 0){
+		// 	cintura.set_rotacao_x(cintura.get_rotacao_x() - 3)
+		// }
 	}else
 	if(CTRL){
-		cout << "######### CTRL #############" << endl;
+		cout << "SHIFT + " << int(key) << endl;
+		// if(key == 0){
+		// 	cintura.set_rotacao_y(cintura.get_rotacao_y() + 3)
+		// }else
+		// if(key == 0){
+		// 	cintura.set_rotacao_y(cintura.get_rotacao_y() - 3)
+		// }
 	}else
 	if(ALT){
-		cout << "######### ALT #############" << endl;
+		cout << "SHIFT + " << int(key) << endl;
+		// if(key == 0){
+		// 	cintura.set_rotacao_z(cintura.get_rotacao_z() + 3)
+		// }else
+		// if(key == 0){
+		// 	cintura.set_rotacao_z(cintura.get_rotacao_z() - 3)
+		// }
+	}else{
+
 	}
+
+
+
+
+
 
 	if(key == 100){
 		cintura.set_deslocamento_y(cintura.get_deslocamento_y() + 3);
