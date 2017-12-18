@@ -4,6 +4,7 @@
 #include <GL/glut.h>
 #include <unistd.h>
 #include <iostream>
+#include <fstream>
 #include "modelo.hpp"
 #include "move.hpp"    // needed to sleep
 
@@ -19,11 +20,31 @@ int CTRL = 0;
 int ALT = 0;
 int SHIFT = 0;
 
-Move animation[2][2] = {
-	{Move(2, 0, 90.0f), Move(2,0, -90.0f)}, // quadril
-	{Move(2, 0, 90.0f), Move(2,0, -90.0f)}};
+ifstream matriz_s;
+
+Move animation[19][100];
 
 //Juntas
+Move cintura_s;
+Move virilha_d_s;
+Move virilha_e_s;
+Move joelho_d_s;
+Move joelho_e_s;
+Move tornozelo_d_s;
+Move tornozelo_e_s;
+Move ponta_pe_d_s;
+Move ponta_pe_e_s;
+Move espinha_d_1_s;
+Move espinha_d_2_s;
+Move espinha_d_3_s;
+Move ombro_d_s;
+Move ombro_e_s;
+Move cotovelo_d_s;
+Move cotovelo_e_s;
+Move pulso_d_s;
+Move pulso_e_s;
+Move junta_pescoco_s;
+
 Modelo cintura(raio_juntas);
 Modelo virilha_d(raio_juntas);
 Modelo virilha_e(raio_juntas);
@@ -77,671 +98,6 @@ Modelo mao_d(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
 
 void animate(){
-
-	//cintura
-	switch(animation[0][anim_pos].type){
-		case 0:
-			switch(animation[0][anim_pos].axis){
-				case 0:
-					cintura.set_deslocamento_x(animation[0][anim_pos].value);
-				break;
-
-				case 1:
-					cintura.set_deslocamento_y(animation[0][anim_pos].value);
-				break;
-
-				case 2:
-					cintura.set_deslocamento_z(animation[0][anim_pos].value);
-				break;
-			}
-		break;
-
-		case 1:
-			switch(animation[0][anim_pos].axis){
-				case 0:
-					cintura.set_rotacao_x(animation[0][anim_pos].value);
-				break;
-
-				case 1:
-					cintura.set_rotacao_y(animation[0][anim_pos].value);
-				break;
-
-				case 2:
-					cintura.set_rotacao_z(animation[0][anim_pos].value);
-				break;
-			}
-		break;
-	}
-
-	//virilha_d
-	switch(animation[1][anim_pos].type){
-		case 0:
-			switch(animation[1][anim_pos].axis){
-				case 0:
-					virilha_d.set_deslocamento_x(animation[1][anim_pos].value);
-				break;
-
-				case 1:
-					virilha_d.set_deslocamento_y(animation[1][anim_pos].value);
-				break;
-
-				case 2:
-					virilha_d.set_deslocamento_z(animation[1][anim_pos].value);
-				break;
-			}
-		break;
-
-		case 1:
-			switch(animation[1][anim_pos].axis){
-				case 0:
-					virilha_d.set_rotacao_x(animation[1][anim_pos].value);
-				break;
-
-				case 1:
-					virilha_d.set_rotacao_y(animation[1][anim_pos].value);
-				break;
-
-				case 2:
-					virilha_d.set_rotacao_z(animation[1][anim_pos].value);
-				break;
-			}
-		break;
-	}
-
-	//virilha_e
-	switch(animation[2][anim_pos].type){
-		case 0:
-			switch(animation[2][anim_pos].axis){
-				case 0:
-					virilha_e.set_deslocamento_x(animation[2][anim_pos].value);
-				break;
-
-				case 1:
-					virilha_e.set_deslocamento_y(animation[2][anim_pos].value);
-				break;
-
-				case 2:
-					virilha_e.set_deslocamento_z(animation[2][anim_pos].value);
-				break;
-			}
-		break;
-
-		case 1:
-			switch(animation[2][anim_pos].axis){
-				case 0:
-					virilha_e.set_rotacao_x(animation[2][anim_pos].value);
-				break;
-
-				case 1:
-					virilha_e.set_rotacao_y(animation[2][anim_pos].value);
-				break;
-
-				case 2:
-					virilha_e.set_rotacao_z(animation[2][anim_pos].value);
-				break;
-			}
-		break;
-	}
-
-	//joelho_d
-	switch(animation[3][anim_pos].type){
-		case 0:
-			switch(animation[3][anim_pos].axis){
-				case 0:
-					joelho_d.set_deslocamento_x(animation[3][anim_pos].value);
-				break;
-
-				case 1:
-					joelho_d.set_deslocamento_y(animation[3][anim_pos].value);
-				break;
-
-				case 2:
-					joelho_d.set_deslocamento_z(animation[3][anim_pos].value);
-				break;
-			}
-		break;
-
-		case 1:
-			switch(animation[3][anim_pos].axis){
-				case 0:
-					joelho_d.set_rotacao_x(animation[3][anim_pos].value);
-				break;
-
-				case 1:
-					joelho_d.set_rotacao_y(animation[3][anim_pos].value);
-				break;
-
-				case 2:
-					joelho_d.set_rotacao_z(animation[3][anim_pos].value);
-				break;
-			}
-		break;
-	}
-
-	//joelho_e
-	switch(animation[4][anim_pos].type){
-		case 0:
-			switch(animation[4][anim_pos].axis){
-				case 0:
-					joelho_e.set_deslocamento_x(animation[4][anim_pos].value);
-				break;
-
-				case 1:
-					joelho_e.set_deslocamento_y(animation[4][anim_pos].value);
-				break;
-
-				case 2:
-					joelho_e.set_deslocamento_z(animation[4][anim_pos].value);
-				break;
-			}
-		break;
-
-		case 1:
-			switch(animation[4][anim_pos].axis){
-				case 0:
-					joelho_e.set_rotacao_x(animation[4][anim_pos].value);
-				break;
-
-				case 1:
-					joelho_e.set_rotacao_y(animation[4][anim_pos].value);
-				break;
-
-				case 2:
-					joelho_e.set_rotacao_z(animation[4][anim_pos].value);
-				break;
-			}
-		break;
-	}
-
-	//tornozelo_d
-	switch(animation[5][anim_pos].type){
-		case 0:
-			switch(animation[5][anim_pos].axis){
-				case 0:
-					tornozelo_d.set_deslocamento_x(animation[5][anim_pos].value);
-				break;
-
-				case 1:
-					tornozelo_d.set_deslocamento_y(animation[5][anim_pos].value);
-				break;
-
-				case 2:
-					tornozelo_d.set_deslocamento_z(animation[5][anim_pos].value);
-				break;
-			}
-		break;
-
-		case 1:
-			switch(animation[5][anim_pos].axis){
-				case 0:
-					tornozelo_d.set_rotacao_x(animation[5][anim_pos].value);
-				break;
-
-				case 1:
-					tornozelo_d.set_rotacao_y(animation[5][anim_pos].value);
-				break;
-
-				case 2:
-					tornozelo_d.set_rotacao_z(animation[5][anim_pos].value);
-				break;
-			}
-		break;
-	}
-
-	//tornozelo_e
-	switch(animation[6][anim_pos].type){
-		case 0:
-			switch(animation[6][anim_pos].axis){
-				case 0:
-					tornozelo_e.set_deslocamento_x(animation[6][anim_pos].value);
-				break;
-
-				case 1:
-					tornozelo_e.set_deslocamento_y(animation[6][anim_pos].value);
-				break;
-
-				case 2:
-					tornozelo_e.set_deslocamento_z(animation[6][anim_pos].value);
-				break;
-			}
-		break;
-
-		case 1:
-			switch(animation[6][anim_pos].axis){
-				case 0:
-					tornozelo_e.set_rotacao_x(animation[6][anim_pos].value);
-				break;
-
-				case 1:
-					tornozelo_e.set_rotacao_y(animation[6][anim_pos].value);
-				break;
-
-				case 2:
-					tornozelo_e.set_rotacao_z(animation[6][anim_pos].value);
-				break;
-			}
-		break;
-	}
-
-	//ponta_pe_d
-	switch(animation[7][anim_pos].type){
-		case 0:
-			switch(animation[7][anim_pos].axis){
-				case 0:
-					ponta_pe_d.set_deslocamento_x(animation[7][anim_pos].value);
-				break;
-
-				case 1:
-					ponta_pe_d.set_deslocamento_y(animation[7][anim_pos].value);
-				break;
-
-				case 2:
-					ponta_pe_d.set_deslocamento_z(animation[7][anim_pos].value);
-				break;
-			}
-		break;
-
-		case 1:
-			switch(animation[7][anim_pos].axis){
-				case 0:
-					ponta_pe_d.set_rotacao_x(animation[7][anim_pos].value);
-				break;
-
-				case 1:
-					ponta_pe_d.set_rotacao_y(animation[7][anim_pos].value);
-				break;
-
-				case 2:
-					ponta_pe_d.set_rotacao_z(animation[7][anim_pos].value);
-				break;
-			}
-		break;
-	}
-
-	//ponta_pe_e
-	switch(animation[8][anim_pos].type){
-		case 0:
-			switch(animation[8][anim_pos].axis){
-				case 0:
-					ponta_pe_e.set_deslocamento_x(animation[8][anim_pos].value);
-				break;
-
-				case 1:
-					ponta_pe_e.set_deslocamento_y(animation[8][anim_pos].value);
-				break;
-
-				case 2:
-					ponta_pe_e.set_deslocamento_z(animation[8][anim_pos].value);
-				break;
-			}
-		break;
-
-		case 1:
-			switch(animation[8][anim_pos].axis){
-				case 0:
-					ponta_pe_e.set_rotacao_x(animation[8][anim_pos].value);
-				break;
-
-				case 1:
-					ponta_pe_e.set_rotacao_y(animation[8][anim_pos].value);
-				break;
-
-				case 2:
-					ponta_pe_e.set_rotacao_z(animation[8][anim_pos].value);
-				break;
-			}
-		break;
-	}
-
-	//espinha_d_1
-	switch(animation[9][anim_pos].type){
-		case 0:
-			switch(animation[9][anim_pos].axis){
-				case 0:
-					espinha_d_1.set_deslocamento_x(animation[9][anim_pos].value);
-				break;
-
-				case 1:
-					espinha_d_1.set_deslocamento_y(animation[9][anim_pos].value);
-				break;
-
-				case 2:
-					espinha_d_1.set_deslocamento_z(animation[9][anim_pos].value);
-				break;
-			}
-		break;
-
-		case 1:
-			switch(animation[9][anim_pos].axis){
-				case 0:
-					espinha_d_1.set_rotacao_x(animation[9][anim_pos].value);
-				break;
-
-				case 1:
-					espinha_d_1.set_rotacao_y(animation[9][anim_pos].value);
-				break;
-
-				case 2:
-					espinha_d_1.set_rotacao_z(animation[9][anim_pos].value);
-				break;
-			}
-		break;
-	}
-
-	//espinha_d_2
-	switch(animation[10][anim_pos].type){
-		case 0:
-			switch(animation[10][anim_pos].axis){
-				case 0:
-					espinha_d_2.set_deslocamento_x(animation[10][anim_pos].value);
-				break;
-
-				case 1:
-					espinha_d_2.set_deslocamento_y(animation[10][anim_pos].value);
-				break;
-
-				case 2:
-					espinha_d_2.set_deslocamento_z(animation[10][anim_pos].value);
-				break;
-			}
-		break;
-
-		case 1:
-			switch(animation[10][anim_pos].axis){
-				case 0:
-					espinha_d_2.set_rotacao_x(animation[10][anim_pos].value);
-				break;
-
-				case 1:
-					espinha_d_2.set_rotacao_y(animation[10][anim_pos].value);
-				break;
-
-				case 2:
-					espinha_d_2.set_rotacao_z(animation[10][anim_pos].value);
-				break;
-			}
-		break;
-	}
-
-	//espinha_d_3
-	switch(animation[11][anim_pos].type){
-		case 0:
-			switch(animation[11][anim_pos].axis){
-				case 0:
-					espinha_d_3.set_deslocamento_x(animation[11][anim_pos].value);
-				break;
-
-				case 1:
-					espinha_d_3.set_deslocamento_y(animation[11][anim_pos].value);
-				break;
-
-				case 2:
-					espinha_d_3.set_deslocamento_z(animation[11][anim_pos].value);
-				break;
-			}
-		break;
-
-		case 1:
-			switch(animation[11][anim_pos].axis){
-				case 0:
-					espinha_d_3.set_rotacao_x(animation[11][anim_pos].value);
-				break;
-
-				case 1:
-					espinha_d_3.set_rotacao_y(animation[11][anim_pos].value);
-				break;
-
-				case 2:
-					espinha_d_3.set_rotacao_z(animation[11][anim_pos].value);
-				break;
-			}
-		break;
-	}
-
-	//ombro_d
-	switch(animation[12][anim_pos].type){
-		case 0:
-			switch(animation[12][anim_pos].axis){
-				case 0:
-					ombro_d.set_deslocamento_x(animation[12][anim_pos].value);
-				break;
-
-				case 1:
-					ombro_d.set_deslocamento_y(animation[12][anim_pos].value);
-				break;
-
-				case 2:
-					ombro_d.set_deslocamento_z(animation[12][anim_pos].value);
-				break;
-			}
-		break;
-
-		case 1:
-			switch(animation[12][anim_pos].axis){
-				case 0:
-					ombro_d.set_rotacao_x(animation[12][anim_pos].value);
-				break;
-
-				case 1:
-					ombro_d.set_rotacao_y(animation[12][anim_pos].value);
-				break;
-
-				case 2:
-					ombro_d.set_rotacao_z(animation[12][anim_pos].value);
-				break;
-			}
-		break;
-	}
-
-	//ombro_e
-	switch(animation[13][anim_pos].type){
-		case 0:
-			switch(animation[13][anim_pos].axis){
-				case 0:
-					ombro_e.set_deslocamento_x(animation[13][anim_pos].value);
-				break;
-
-				case 1:
-					ombro_e.set_deslocamento_y(animation[13][anim_pos].value);
-				break;
-
-				case 2:
-					ombro_e.set_deslocamento_z(animation[13][anim_pos].value);
-				break;
-			}
-		break;
-
-		case 1:
-			switch(animation[13][anim_pos].axis){
-				case 0:
-					ombro_e.set_rotacao_x(animation[13][anim_pos].value);
-				break;
-
-				case 1:
-					ombro_e.set_rotacao_y(animation[13][anim_pos].value);
-				break;
-
-				case 2:
-					ombro_e.set_rotacao_z(animation[13][anim_pos].value);
-				break;
-			}
-		break;
-	}
-
-	//cotovelo_d
-	switch(animation[14][anim_pos].type){
-		case 0:
-			switch(animation[14][anim_pos].axis){
-				case 0:
-					cotovelo_d.set_deslocamento_x(animation[14][anim_pos].value);
-				break;
-
-				case 1:
-					cotovelo_d.set_deslocamento_y(animation[14][anim_pos].value);
-				break;
-
-				case 2:
-					cotovelo_d.set_deslocamento_z(animation[14][anim_pos].value);
-				break;
-			}
-		break;
-
-		case 1:
-			switch(animation[14][anim_pos].axis){
-				case 0:
-					cotovelo_d.set_rotacao_x(animation[14][anim_pos].value);
-				break;
-
-				case 1:
-					cotovelo_d.set_rotacao_y(animation[14][anim_pos].value);
-				break;
-
-				case 2:
-					cotovelo_d.set_rotacao_z(animation[14][anim_pos].value);
-				break;
-			}
-		break;
-	}
-
-	//cotovelo_e
-	switch(animation[15][anim_pos].type){
-		case 0:
-			switch(animation[15][anim_pos].axis){
-				case 0:
-					cotovelo_e.set_deslocamento_x(animation[15][anim_pos].value);
-				break;
-
-				case 1:
-					cotovelo_e.set_deslocamento_y(animation[15][anim_pos].value);
-				break;
-
-				case 2:
-					cotovelo_e.set_deslocamento_z(animation[15][anim_pos].value);
-				break;
-			}
-		break;
-
-		case 1:
-			switch(animation[15][anim_pos].axis){
-				case 0:
-					cotovelo_e.set_rotacao_x(animation[15][anim_pos].value);
-				break;
-
-				case 1:
-					cotovelo_e.set_rotacao_y(animation[15][anim_pos].value);
-				break;
-
-				case 2:
-					cotovelo_e.set_rotacao_z(animation[15][anim_pos].value);
-				break;
-			}
-		break;
-	}
-
-	//pulso_d
-	switch(animation[16][anim_pos].type){
-		case 0:
-			switch(animation[16][anim_pos].axis){
-				case 0:
-					pulso_d.set_deslocamento_x(animation[16][anim_pos].value);
-				break;
-
-				case 1:
-					pulso_d.set_deslocamento_y(animation[16][anim_pos].value);
-				break;
-
-				case 2:
-					pulso_d.set_deslocamento_z(animation[16][anim_pos].value);
-				break;
-			}
-		break;
-
-		case 1:
-			switch(animation[16][anim_pos].axis){
-				case 0:
-					pulso_d.set_rotacao_x(animation[16][anim_pos].value);
-				break;
-
-				case 1:
-					pulso_d.set_rotacao_y(animation[16][anim_pos].value);
-				break;
-
-				case 2:
-					pulso_d.set_rotacao_z(animation[16][anim_pos].value);
-				break;
-			}
-		break;
-	}
-
-	//pulso_e
-	switch(animation[17][anim_pos].type){
-		case 0:
-			switch(animation[17][anim_pos].axis){
-				case 0:
-					pulso_e.set_deslocamento_x(animation[17][anim_pos].value);
-				break;
-
-				case 1:
-					pulso_e.set_deslocamento_y(animation[17][anim_pos].value);
-				break;
-
-				case 2:
-					pulso_e.set_deslocamento_z(animation[17][anim_pos].value);
-				break;
-			}
-		break;
-
-		case 1:
-			switch(animation[17][anim_pos].axis){
-				case 0:
-					pulso_e.set_rotacao_x(animation[17][anim_pos].value);
-				break;
-
-				case 1:
-					pulso_e.set_rotacao_y(animation[17][anim_pos].value);
-				break;
-
-				case 2:
-					pulso_e.set_rotacao_z(animation[17][anim_pos].value);
-				break;
-			}
-		break;
-	}
-
-	//junta_pescoco
-	switch(animation[18][anim_pos].type){
-		case 0:
-			switch(animation[18][anim_pos].axis){
-				case 0:
-					junta_pescoco.set_deslocamento_x(animation[18][anim_pos].value);
-				break;
-
-				case 1:
-					junta_pescoco.set_deslocamento_y(animation[18][anim_pos].value);
-				break;
-
-				case 2:
-					junta_pescoco.set_deslocamento_z(animation[18][anim_pos].value);
-				break;
-			}
-		break;
-
-		case 1:
-			switch(animation[18][anim_pos].axis){
-				case 0:
-					junta_pescoco.set_rotacao_x(animation[18][anim_pos].value);
-				break;
-
-				case 1:
-					junta_pescoco.set_rotacao_y(animation[18][anim_pos].value);
-				break;
-
-				case 2:
-					junta_pescoco.set_rotacao_z(animation[18][anim_pos].value);
-				break;
-			}
-		break;
-	}
 
 }
 
@@ -1274,399 +630,355 @@ void keyBoardfunc(unsigned char key, int x, int y){
 	if(SHIFT){
 		cout << "SHIFT + " << int(key) << endl;
 		if(key == 33){
-			cintura.set_rotacao_x(cintura.get_rotacao_x() + 3)
+			cintura.set_rotacao_x(cintura.get_rotacao_x() + 3);
 		}else
 		if(key == 81){
-			cintura.set_rotacao_x(cintura.get_rotacao_x() - 3)
+			cintura.set_rotacao_x(cintura.get_rotacao_x() - 3);
 		}else
 		if(key == 64){
-			virilha_d.set_rotacao_x(virilha_d.get_rotacao_x() + 3)
+			virilha_d.set_rotacao_x(virilha_d.get_rotacao_x() + 3);
 		}else
 		if(key == 87){
-			virilha_d.set_rotacao_x(virilha_d.get_rotacao_x() - 3)
+			virilha_d.set_rotacao_x(virilha_d.get_rotacao_x() - 3);
 		}else
 		if(key == 35){
-			virilha_e.set_rotacao_x(virilha_e.get_rotacao_x() + 3)
+			virilha_e.set_rotacao_x(virilha_e.get_rotacao_x() + 3);
 		}else
 		if(key == 69){
-			virilha_e.set_rotacao_x(virilha_e.get_rotacao_x() - 3)
+			virilha_e.set_rotacao_x(virilha_e.get_rotacao_x() - 3);
 		}else
 		if(key == 36){
-			joelho_d.set_rotacao_x(joelho_d.get_rotacao_x() + 3)
+			joelho_d.set_rotacao_x(joelho_d.get_rotacao_x() + 3);
 		}else
 		if(key == 82){
-			joelho_d.set_rotacao_x(joelho_d.get_rotacao_x() - 3)
+			joelho_d.set_rotacao_x(joelho_d.get_rotacao_x() - 3);
 		}else
 		if(key == 37){
-			joelho_e.set_rotacao_x(joelho_e.get_rotacao_x() + 3)
+			joelho_e.set_rotacao_x(joelho_e.get_rotacao_x() + 3);
 		}else
 		if(key == 84){
-			joelho_e.set_rotacao_x(joelho_e.get_rotacao_x() - 3)
+			joelho_e.set_rotacao_x(joelho_e.get_rotacao_x() - 3);
 		}else
 		if(key == 168){
-			tornozelo_d.set_rotacao_x(tornozelo_d.get_rotacao_x() + 3)
+			tornozelo_d.set_rotacao_x(tornozelo_d.get_rotacao_x() + 3);
 		}else
 		if(key == 89){
-			tornozelo_d.set_rotacao_x(tornozelo_d.get_rotacao_x() - 3)
+			tornozelo_d.set_rotacao_x(tornozelo_d.get_rotacao_x() - 3);
 		}else
 		if(key == 38){
-			tornozelo_e.set_rotacao_x(tornozelo_e.get_rotacao_x() + 3)
+			tornozelo_e.set_rotacao_x(tornozelo_e.get_rotacao_x() + 3);
 		}else
 		if(key == 85){
-			tornozelo_e.set_rotacao_x(tornozelo_e.get_rotacao_x() - 3)
+			tornozelo_e.set_rotacao_x(tornozelo_e.get_rotacao_x() - 3);
 		}else
 		if(key == 42){
-			ponta_pe_d.set_rotacao_x(ponta_pe_d.get_rotacao_x() + 3)
+			ponta_pe_d.set_rotacao_x(ponta_pe_d.get_rotacao_x() + 3);
 		}else
 		if(key == 73){
-			ponta_pe_d.set_rotacao_x(ponta_pe_d.get_rotacao_x() - 3)
+			ponta_pe_d.set_rotacao_x(ponta_pe_d.get_rotacao_x() - 3);
 		}else
 		if(key == 40){
-			ponta_pe_e.set_rotacao_x(ponta_pe_e.get_rotacao_x() + 3)
+			ponta_pe_e.set_rotacao_x(ponta_pe_e.get_rotacao_x() + 3);
 		}else
 		if(key == 79){
-			ponta_pe_e.set_rotacao_x(ponta_pe_e.get_rotacao_x() - 3)
+			ponta_pe_e.set_rotacao_x(ponta_pe_e.get_rotacao_x() - 3);
 		}else
 		if(key == 41){
-			espinha_d_1.set_rotacao_x(espinha_d_1.get_rotacao_x() + 3)
+			espinha_d_1.set_rotacao_x(espinha_d_1.get_rotacao_x() + 3);
 		}else
 		if(key == 80){
-			espinha_d_1.set_rotacao_x(espinha_d_1.get_rotacao_x() - 3)
+			espinha_d_1.set_rotacao_x(espinha_d_1.get_rotacao_x() - 3);
 		}else
-		if(key == 95){
-			espinha_d_2.set_rotacao_x(espinha_d_2.get_rotacao_x() + 3)
+		if(key == 75){
+			espinha_d_2.set_rotacao_x(espinha_d_2.get_rotacao_x() + 3);
 		}else
-		if(key == 96){
-			espinha_d_2.set_rotacao_x(espinha_d_2.get_rotacao_x() - 3)
+		if(key == 60){
+			espinha_d_2.set_rotacao_x(espinha_d_2.get_rotacao_x() - 3);
 		}else
-		if(key == 43){
-			espinha_d_3.set_rotacao_x(espinha_d_3.get_rotacao_x() + 3)
+		if(key == 76){
+			espinha_d_3.set_rotacao_x(espinha_d_3.get_rotacao_x() + 3);
 		}else
-		if(key == 123){
-			espinha_d_3.set_rotacao_x(espinha_d_3.get_rotacao_x() - 3)
+		if(key == 62){
+			espinha_d_3.set_rotacao_x(espinha_d_3.get_rotacao_x() - 3);
 		}else
 		if(key == 65){
-			ombro_d.set_rotacao_x(ombro_d.get_rotacao_x() + 3)
+			ombro_d.set_rotacao_x(ombro_d.get_rotacao_x() + 3);
 		}else
 		if(key == 90){
-			ombro_d.set_rotacao_x(ombro_d.get_rotacao_x() - 3)
+			ombro_d.set_rotacao_x(ombro_d.get_rotacao_x() - 3);
 		}else
 		if(key == 83){
-			ombro_e.set_rotacao_x(ombro_e.get_rotacao_x() + 3)
+			ombro_e.set_rotacao_x(ombro_e.get_rotacao_x() + 3);
 		}else
 		if(key == 88){
-			ombro_e.set_rotacao_x(ombro_e.get_rotacao_x() - 3)
+			ombro_e.set_rotacao_x(ombro_e.get_rotacao_x() - 3);
 		}else
 		if(key == 68){
-			cotovelo_d.set_rotacao_x(cotovelo_d.get_rotacao_x() + 3)
+			cotovelo_d.set_rotacao_x(cotovelo_d.get_rotacao_x() + 3);
 		}else
 		if(key == 67){
-			cotovelo_d.set_rotacao_x(cotovelo_d.get_rotacao_x() - 3)
+			cotovelo_d.set_rotacao_x(cotovelo_d.get_rotacao_x() - 3);
 		}else
 		if(key == 70){
-			cotovelo_e.set_rotacao_x(cotovelo_e.get_rotacao_x() + 3)
+			cotovelo_e.set_rotacao_x(cotovelo_e.get_rotacao_x() + 3);
 		}else
 		if(key == 86){
-			cotovelo_e.set_rotacao_x(cotovelo_e.get_rotacao_x() - 3)
+			cotovelo_e.set_rotacao_x(cotovelo_e.get_rotacao_x() - 3);
 		}else
 		if(key == 71){
-			pulso_d.set_rotacao_x(pulso_d.get_rotacao_x() + 3)
+			pulso_d.set_rotacao_x(pulso_d.get_rotacao_x() + 3);
 		}else
 		if(key == 66){
-			pulso_d.set_rotacao_x(pulso_d.get_rotacao_x() - 3)
+			pulso_d.set_rotacao_x(pulso_d.get_rotacao_x() - 3);
 		}else
 		if(key == 72){
-			pulso_e.set_rotacao_x(pulso_e.get_rotacao_x() + 3)
+			pulso_e.set_rotacao_x(pulso_e.get_rotacao_x() + 3);
 		}else
 		if(key == 78){
-			pulso_e.set_rotacao_x(pulso_e.get_rotacao_x() - 3)
+			pulso_e.set_rotacao_x(pulso_e.get_rotacao_x() - 3);
 		}else
 		if(key == 74){
-			junta_pescoco.set_rotacao_x(junta_pescoco.get_rotacao_x() + 3)
+			junta_pescoco.set_rotacao_x(junta_pescoco.get_rotacao_x() + 3);
 		}else
 		if(key == 77){
-			junta_pescoco.set_rotacao_x(junta_pescoco.get_rotacao_x() - 3)
+			junta_pescoco.set_rotacao_x(junta_pescoco.get_rotacao_x() - 3);
 		}
 	}else
 	if(CTRL){
 		cout << "CTRL + " << int(key) << endl;
-		if(key == 47){
-		  cintura.set_rotacao_y(cintura.get_rotacao_y() + 3)
+		if(key == 49){
+		  cintura.set_rotacao_y(cintura.get_rotacao_y() + 3);
 		}else
 		if(key == 17){
-		  cintura.set_rotacao_y(cintura.get_rotacao_y() - 3)
+		  cintura.set_rotacao_y(cintura.get_rotacao_y() - 3);
 		}else
 		if(key == 0){
-		  virilha_d.set_rotacao_y(virilha_d.get_rotacao_y() + 3)
+		  virilha_d.set_rotacao_y(virilha_d.get_rotacao_y() + 3);
 		}else
 		if(key == 23){
-		  virilha_d.set_rotacao_y(virilha_d.get_rotacao_y() - 3)
+		  virilha_d.set_rotacao_y(virilha_d.get_rotacao_y() - 3);
 		}else
 		if(key == 27){
-		  virilha_e.set_rotacao_y(virilha_e.get_rotacao_y() + 3)
+		 virilha_e.set_rotacao_y(virilha_e.get_rotacao_y() + 3);
 		}else
 		if(key == 5){
-		  virilha_e.set_rotacao_y(virilha_e.get_rotacao_y() - 3)
+		  virilha_e.set_rotacao_y(virilha_e.get_rotacao_y() - 3);
 		}else
 		if(key == 28){
-		  joelho_d.set_rotacao_y(joelho_d.get_rotacao_y() + 3)
+		  joelho_d.set_rotacao_y(joelho_d.get_rotacao_y() + 3);
 		}else
 		if(key == 18){
-		  joelho_d.set_rotacao_y(joelho_d.get_rotacao_y() - 3)
+		  joelho_d.set_rotacao_y(joelho_d.get_rotacao_y() - 3);
 		}else
 		if(key == 29){
-		  joelho_e.set_rotacao_y(joelho_e.get_rotacao_y() + 3)
+		  joelho_e.set_rotacao_y(joelho_e.get_rotacao_y() + 3);
 		}else
 		if(key == 20){
-		  joelho_e.set_rotacao_y(joelho_e.get_rotacao_y() - 3)
+		  joelho_e.set_rotacao_y(joelho_e.get_rotacao_y() - 3);
 		}else
 		if(key == 30){
-		  tornozelo_d.set_rotacao_y(tornozelo_d.get_rotacao_y() + 3)
+		  tornozelo_d.set_rotacao_y(tornozelo_d.get_rotacao_y() + 3);
 		}else
 		if(key == 25){
-		  tornozelo_d.set_rotacao_y(tornozelo_d.get_rotacao_y() - 3)
+		  tornozelo_d.set_rotacao_y(tornozelo_d.get_rotacao_y() - 3);
 		}else
 		if(key == 31){
-		  tornozelo_e.set_rotacao_y(tornozelo_e.get_rotacao_y() + 3)
+		  tornozelo_e.set_rotacao_y(tornozelo_e.get_rotacao_y() + 3);
 		}else
 		if(key == 21){
-		  tornozelo_e.set_rotacao_y(tornozelo_e.get_rotacao_y() - 3)
+		  tornozelo_e.set_rotacao_y(tornozelo_e.get_rotacao_y() - 3);
 		}else
 		if(key == 127){
-		  ponta_pe_d.set_rotacao_y(ponta_pe_d.get_rotacao_y() + 3)
+		  ponta_pe_d.set_rotacao_y(ponta_pe_d.get_rotacao_y() + 3);
 		}else
 		if(key == 9){
-		  ponta_pe_d.set_rotacao_y(ponta_pe_d.get_rotacao_y() - 3)
+		  ponta_pe_d.set_rotacao_y(ponta_pe_d.get_rotacao_y() - 3);
 		}else
 		if(key == 57){
-		  ponta_pe_e.set_rotacao_y(ponta_pe_e.get_rotacao_y() + 3)
+		  ponta_pe_e.set_rotacao_y(ponta_pe_e.get_rotacao_y() + 3);
 		}else
 		if(key == 15){
-		  ponta_pe_e.set_rotacao_y(ponta_pe_e.get_rotacao_y() - 3)
+		  ponta_pe_e.set_rotacao_y(ponta_pe_e.get_rotacao_y() - 3);
 		}else
 		if(key == 48){
-		  espinha_d_1.set_rotacao_y(espinha_d_1.get_rotacao_y() + 3)
+		  espinha_d_1.set_rotacao_y(espinha_d_1.get_rotacao_y() + 3);
 		}else
 		if(key == 16){
-		  espinha_d_1.set_rotacao_y(espinha_d_1.get_rotacao_y() - 3)
+		  espinha_d_1.set_rotacao_y(espinha_d_1.get_rotacao_y() - 3);
 		}else
-		if(key == 45){
-		  espinha_d_2.set_rotacao_y(espinha_d_2.get_rotacao_y() + 3)
+		if(key == 11){
+		  espinha_d_2.set_rotacao_y(espinha_d_2.get_rotacao_y() + 3);
 		}else
-		if(key == 27){
-		  espinha_d_2.set_rotacao_y(espinha_d_2.get_rotacao_y() - 3)
+		if(key == 44){
+		  espinha_d_2.set_rotacao_y(espinha_d_2.get_rotacao_y() - 3);
 		}else
-		if(key == 61){
-		  espinha_d_3.set_rotacao_y(espinha_d_3.get_rotacao_y() + 3)
+		if(key == 12){
+		  espinha_d_3.set_rotacao_y(espinha_d_3.get_rotacao_y() + 3);
 		}else
-		if(key == 27){
-		  espinha_d_3.set_rotacao_y(espinha_d_3.get_rotacao_y() - 3)
+		if(key == 46){
+		  espinha_d_3.set_rotacao_y(espinha_d_3.get_rotacao_y() - 3);
 		}else
 		if(key == 1){
-		  ombro_d.set_rotacao_y(ombro_d.get_rotacao_y() + 3)
+		  ombro_d.set_rotacao_y(ombro_d.get_rotacao_y() + 3);
 		}else
 		if(key == 26){
-		  ombro_d.set_rotacao_y(ombro_d.get_rotacao_y() - 3)
+		  ombro_d.set_rotacao_y(ombro_d.get_rotacao_y() - 3);
 		}else
 		if(key == 19){
-		  ombro_e.set_rotacao_y(ombro_e.get_rotacao_y() + 3)
+		  ombro_e.set_rotacao_y(ombro_e.get_rotacao_y() + 3);
 		}else
 		if(key == 24){
-		  ombro_e.set_rotacao_y(ombro_e.get_rotacao_y() - 3)
+		  ombro_e.set_rotacao_y(ombro_e.get_rotacao_y() - 3);
 		}else
 		if(key == 4){
-		  cotovelo_d.set_rotacao_y(cotovelo_d.get_rotacao_y() + 3)
+		  cotovelo_d.set_rotacao_y(cotovelo_d.get_rotacao_y() + 3);
 		}else
 		if(key == 3){
-		  cotovelo_d.set_rotacao_y(cotovelo_d.get_rotacao_y() - 3)
+		  cotovelo_d.set_rotacao_y(cotovelo_d.get_rotacao_y() - 3);
 		}else
 		if(key == 6){
-		  cotovelo_e.set_rotacao_y(cotovelo_e.get_rotacao_y() + 3)
+		  cotovelo_e.set_rotacao_y(cotovelo_e.get_rotacao_y() + 3);
 		}else
 		if(key == 22){
-		  cotovelo_e.set_rotacao_y(cotovelo_e.get_rotacao_y() - 3)
+		  cotovelo_e.set_rotacao_y(cotovelo_e.get_rotacao_y() - 3);
 		}else
 		if(key == 7){
-		  pulso_d.set_rotacao_y(pulso_d.get_rotacao_y() + 3)
+		  pulso_d.set_rotacao_y(pulso_d.get_rotacao_y() + 3);
 		}else
 		if(key == 2){
-		  pulso_d.set_rotacao_y(pulso_d.get_rotacao_y() - 3)
+		  pulso_d.set_rotacao_y(pulso_d.get_rotacao_y() - 3);
 		}else
 		if(key == 8){
-		  pulso_e.set_rotacao_y(pulso_e.get_rotacao_y() + 3)
+		  pulso_e.set_rotacao_y(pulso_e.get_rotacao_y() + 3);
 		}else
 		if(key == 14){
-		  pulso_e.set_rotacao_y(pulso_e.get_rotacao_y() - 3)
+		  pulso_e.set_rotacao_y(pulso_e.get_rotacao_y() - 3);
 		}else
 		if(key == 10){
-		  junta_pescoco.set_rotacao_y(junta_pescoco.get_rotacao_y() + 3)
+		  junta_pescoco.set_rotacao_y(junta_pescoco.get_rotacao_y() + 3);
 		}else
 		if(key == 13){
-		  junta_pescoco.set_rotacao_y(junta_pescoco.get_rotacao_y() - 3)
+		  junta_pescoco.set_rotacao_y(junta_pescoco.get_rotacao_y() - 3);
 		}
 	}else
 	if(ALT){
 		cout << "ALT + " << int(key) << endl;
 		if(key == 49){
-		  cintura.set_rotacao_z(cintura.get_rotacao_z() + 3)
+		  cintura.set_rotacao_z(cintura.get_rotacao_z() + 3);
 		}else
 		if(key == 113){
-		  cintura.set_rotacao_z(cintura.get_rotacao_z() - 3)
+		  cintura.set_rotacao_z(cintura.get_rotacao_z() - 3);
 		}else
 		if(key == 50){
-		  virilha_d.set_rotacao_z(virilha_d.get_rotacao_z() + 3)
+		  virilha_d.set_rotacao_z(virilha_d.get_rotacao_z() + 3);
 		}else
 		if(key == 119){
-		  virilha_d.set_rotacao_z(virilha_d.get_rotacao_z() - 3)
+		  virilha_d.set_rotacao_z(virilha_d.get_rotacao_z() - 3);
 		}else
 		if(key == 51){
-		  virilha_e.set_rotacao_z(virilha_e.get_rotacao_z() + 3)
+		  virilha_e.set_rotacao_z(virilha_e.get_rotacao_z() + 3);
 		}else
 		if(key == 101){
-		  virilha_e.set_rotacao_z(virilha_e.get_rotacao_z() - 3)
+		  virilha_e.set_rotacao_z(virilha_e.get_rotacao_z() - 3);
 		}else
 		if(key == 52){
-		  joelho_d.set_rotacao_z(joelho_d.get_rotacao_z() + 3)
+		  joelho_d.set_rotacao_z(joelho_d.get_rotacao_z() + 3);
 		}else
 		if(key == 114){
-		  joelho_d.set_rotacao_z(joelho_d.get_rotacao_z() - 3)
+		  joelho_d.set_rotacao_z(joelho_d.get_rotacao_z() - 3);
 		}else
 		if(key == 53){
-		  joelho_e.set_rotacao_z(joelho_e.get_rotacao_z() + 3)
+		  joelho_e.set_rotacao_z(joelho_e.get_rotacao_z() + 3);
 		}else
 		if(key == 116){
-		  joelho_e.set_rotacao_z(joelho_e.get_rotacao_z() - 3)
+		  joelho_e.set_rotacao_z(joelho_e.get_rotacao_z() - 3);
 		}else
 		if(key == 54){
-		  tornozelo_d.set_rotacao_z(tornozelo_d.get_rotacao_z() + 3)
+		  tornozelo_d.set_rotacao_z(tornozelo_d.get_rotacao_z() + 3);
 		}else
 		if(key == 121){
-		  tornozelo_d.set_rotacao_z(tornozelo_d.get_rotacao_z() - 3)
+		  tornozelo_d.set_rotacao_z(tornozelo_d.get_rotacao_z() - 3);
 		}else
 		if(key == 55){
-		  tornozelo_e.set_rotacao_z(tornozelo_e.get_rotacao_z() + 3)
+		  tornozelo_e.set_rotacao_z(tornozelo_e.get_rotacao_z() + 3);
 		}else
 		if(key == 117){
-		  tornozelo_e.set_rotacao_z(tornozelo_e.get_rotacao_z() - 3)
+		  tornozelo_e.set_rotacao_z(tornozelo_e.get_rotacao_z() - 3);
 		}else
 		if(key == 56){
-		  ponta_pe_d.set_rotacao_z(ponta_pe_d.get_rotacao_z() + 3)
+		  ponta_pe_d.set_rotacao_z(ponta_pe_d.get_rotacao_z() + 3);
 		}else
 		if(key == 105){
-		  ponta_pe_d.set_rotacao_z(ponta_pe_d.get_rotacao_z() - 3)
+		  ponta_pe_d.set_rotacao_z(ponta_pe_d.get_rotacao_z() - 3);
 		}else
 		if(key == 57){
-		  ponta_pe_e.set_rotacao_z(ponta_pe_e.get_rotacao_z() + 3)
+		  ponta_pe_e.set_rotacao_z(ponta_pe_e.get_rotacao_z() + 3);
 		}else
 		if(key == 111){
-		  ponta_pe_e.set_rotacao_z(ponta_pe_e.get_rotacao_z() - 3)
+		  ponta_pe_e.set_rotacao_z(ponta_pe_e.get_rotacao_z() - 3);
 		}else
 		if(key == 48){
-		  espinha_d_1.set_rotacao_z(espinha_d_1.get_rotacao_z() + 3)
+		  espinha_d_1.set_rotacao_z(espinha_d_1.get_rotacao_z() + 3);
 		}else
 		if(key == 112){
-		  espinha_d_1.set_rotacao_z(espinha_d_1.get_rotacao_z() - 3)
+		  espinha_d_1.set_rotacao_z(espinha_d_1.get_rotacao_z() - 3);
 		}else
-		if(key == 45){
-		  espinha_d_2.set_rotacao_z(espinha_d_2.get_rotacao_z() + 3)
+		if(key == 107){
+		  espinha_d_2.set_rotacao_z(espinha_d_2.get_rotacao_z() + 3);
 		}else
-		if(key == 180){
-		  espinha_d_2.set_rotacao_z(espinha_d_2.get_rotacao_z() - 3)
+		if(key == 44){
+		  espinha_d_2.set_rotacao_z(espinha_d_2.get_rotacao_z() - 3);
 		}else
-		if(key == 61){
-		  espinha_d_3.set_rotacao_z(espinha_d_3.get_rotacao_z() + 3)
+		if(key == 108){
+		  espinha_d_3.set_rotacao_z(espinha_d_3.get_rotacao_z() + 3);
 		}else
-		if(key == 91){
-		  espinha_d_3.set_rotacao_z(espinha_d_3.get_rotacao_z() - 3)
+		if(key == 46){
+		  espinha_d_3.set_rotacao_z(espinha_d_3.get_rotacao_z() - 3);
 		}else
 		if(key == 97){
-		  ombro_d.set_rotacao_z(ombro_d.get_rotacao_z() + 3)
+		  ombro_d.set_rotacao_z(ombro_d.get_rotacao_z() + 3);
 		}else
 		if(key == 122){
-		  ombro_d.set_rotacao_z(ombro_d.get_rotacao_z() - 3)
+		  ombro_d.set_rotacao_z(ombro_d.get_rotacao_z() - 3);
 		}else
 		if(key == 115){
-		  ombro_e.set_rotacao_z(ombro_e.get_rotacao_z() + 3)
+		  ombro_e.set_rotacao_z(ombro_e.get_rotacao_z() + 3);
 		}else
 		if(key == 120){
-		  ombro_e.set_rotacao_z(ombro_e.get_rotacao_z() - 3)
+		  ombro_e.set_rotacao_z(ombro_e.get_rotacao_z() - 3);
 		}else
 		if(key == 100){
-		  cotovelo_d.set_rotacao_z(cotovelo_d.get_rotacao_z() + 3)
+		  cotovelo_d.set_rotacao_z(cotovelo_d.get_rotacao_z() + 3);
 		}else
 		if(key == 99){
-		  cotovelo_d.set_rotacao_z(cotovelo_d.get_rotacao_z() - 3)
+		  cotovelo_d.set_rotacao_z(cotovelo_d.get_rotacao_z() - 3);
 		}else
 		if(key == 102){
-		  cotovelo_e.set_rotacao_z(cotovelo_e.get_rotacao_z() + 3)
+		  cotovelo_e.set_rotacao_z(cotovelo_e.get_rotacao_z() + 3);
 		}else
 		if(key == 118){
-		  cotovelo_e.set_rotacao_z(cotovelo_e.get_rotacao_z() - 3)
+		  cotovelo_e.set_rotacao_z(cotovelo_e.get_rotacao_z() - 3);
 		}else
 		if(key == 103){
-		  pulso_d.set_rotacao_z(pulso_d.get_rotacao_z() + 3)
+		  pulso_d.set_rotacao_z(pulso_d.get_rotacao_z() + 3);
 		}else
 		if(key == 98){
-		  pulso_d.set_rotacao_z(pulso_d.get_rotacao_z() - 3)
+		  pulso_d.set_rotacao_z(pulso_d.get_rotacao_z() - 3);
 		}else
 		if(key == 104){
-		  pulso_e.set_rotacao_z(pulso_e.get_rotacao_z() + 3)
+		  pulso_e.set_rotacao_z(pulso_e.get_rotacao_z() + 3);
 		}else
 		if(key == 110){
-		  pulso_e.set_rotacao_z(pulso_e.get_rotacao_z() - 3)
+		  pulso_e.set_rotacao_z(pulso_e.get_rotacao_z() - 3);
 		}else
 		if(key == 106){
-		  junta_pescoco.set_rotacao_z(junta_pescoco.get_rotacao_z() + 3)
+		  junta_pescoco.set_rotacao_z(junta_pescoco.get_rotacao_z() + 3);
 		}else
 		if(key == 109){
-		  junta_pescoco.set_rotacao_z(junta_pescoco.get_rotacao_z() - 3)
+		  junta_pescoco.set_rotacao_z(junta_pescoco.get_rotacao_z() - 3);
 		}
 	}else{
 
-	}
-
-
-
-
-
-
-	if(key == 100){
-		cintura.set_deslocamento_y(cintura.get_deslocamento_y() + 3);
-	}else
-	if(key == 97){
-		cintura.set_deslocamento_y(cintura.get_deslocamento_y() - 3);
-	}else
-	if(key == 119){
-		cintura.set_rotacao_y(cintura.get_rotacao_y() + 3);
-	}else
-	if(key == 115){
-		cintura.set_rotacao_y(cintura.get_rotacao_y() - 3);
-	}else
-	if(key == 103){
-
-		if(joelho_sentido == 0){
-			if(virilha_d.get_rotacao_x() > -45){
-				virilha_d.set_rotacao_x(virilha_d.get_rotacao_x() - 3);
-			}else
-			if(virilha_d.get_rotacao_x() <= -45){
-				if(joelho_d.get_rotacao_y() <= 90){
-					joelho_d.set_rotacao_y(joelho_d.get_rotacao_y() + 3);
-				}else{
-					joelho_sentido = 1;
-				}
-			}
-		}else{
-			if(virilha_d.get_rotacao_x() < 0){
-				virilha_d.set_rotacao_x(virilha_d.get_rotacao_x() + 3);
-			}else
-			if(virilha_d.get_rotacao_x() == 0){
-				if(joelho_d.get_rotacao_y()  >= 0){
-					joelho_d.set_rotacao_y(joelho_d.get_rotacao_y() - 3);
-				}else{
-					joelho_sentido = 0;
-				}
-			}
-		}
 	}
 
 	glutPostRedisplay();
@@ -1675,6 +987,8 @@ void keyBoardfunc(unsigned char key, int x, int y){
 // Programa Principal
 int main(int argc, char** argv)
 {
+
+	matriz_s.open("saida.txt", ifstream::in);
 
 	virilha_d.set_rotacao_z(-90.0f);
 	virilha_e.set_rotacao_z(-90.0f);

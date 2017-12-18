@@ -1,8 +1,11 @@
 class Move{
 public:
-	int type;
-	int axis;
-	float value;
+	float r_x;
+	float r_y;
+	float r_z;
+	float t_x;
+	float t_y;
+	float t_z;
 
-	Move(int type, int axis, float value);
+	Move();
 };
