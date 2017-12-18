@@ -3,12 +3,25 @@
 
 #include <GL/glut.h>
 #include <unistd.h>
-#include "modelo.hpp"     // needed to sleep
+#include <iostream>
+#include "modelo.hpp"
+#include "move.hpp"    // needed to sleep
+
+using namespace std;
 
 GLfloat angle, fAspect;
 
 float raio_juntas = 2.0f;
 int joelho_sentido = 0;
+int anim_pos = 0;
+
+int CTRL = 0;
+int ALT = 0;
+int SHIFT = 0;
+
+Move animation[2][2] = {
+	{Move(2, 0, 90.0f), Move(2,0, -90.0f)}, // quadril
+	{Move(2, 0, 90.0f), Move(2,0, -90.0f)}};
 
 //Juntas
 Modelo cintura(raio_juntas);
@@ -23,8 +36,8 @@ Modelo ponta_pe_e(raio_juntas);
 Modelo espinha_d_1(raio_juntas);
 Modelo espinha_d_2(raio_juntas);
 Modelo espinha_d_3(raio_juntas);
-Modelo ombro_d(raio_juntas);
-Modelo ombro_e(raio_juntas);
+Modelo ombro_d(3.0f);
+Modelo ombro_e(3.0f);
 Modelo cotovelo_d(raio_juntas);
 Modelo cotovelo_e(raio_juntas);
 Modelo pulso_d(raio_juntas);
@@ -54,7 +67,7 @@ Modelo saboneteira_d(8.0f, 4.0f, 14.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 Modelo saboneteira_e(8.0f, 4.0f, 14.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
 Modelo braco_e(16.0f, 5.0f, 5.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
-Modelo braco_d(16.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+Modelo braco_d(16.0f, 5.0f, 5.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
 Modelo antebraco_e(16.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 Modelo antebraco_d(16.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
@@ -62,16 +75,686 @@ Modelo antebraco_d(16.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 Modelo mao_e(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 Modelo mao_d(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
-void desenha_junta(){
+
+void animate(){
+
+	//cintura
+	switch(animation[0][anim_pos].type){
+		case 0:
+			switch(animation[0][anim_pos].axis){
+				case 0:
+					cintura.set_deslocamento_x(animation[0][anim_pos].value);
+				break;
+
+				case 1:
+					cintura.set_deslocamento_y(animation[0][anim_pos].value);
+				break;
+
+				case 2:
+					cintura.set_deslocamento_z(animation[0][anim_pos].value);
+				break;
+			}
+		break;
+
+		case 1:
+			switch(animation[0][anim_pos].axis){
+				case 0:
+					cintura.set_rotacao_x(animation[0][anim_pos].value);
+				break;
+
+				case 1:
+					cintura.set_rotacao_y(animation[0][anim_pos].value);
+				break;
+
+				case 2:
+					cintura.set_rotacao_z(animation[0][anim_pos].value);
+				break;
+			}
+		break;
+	}
+
+	//virilha_d
+	switch(animation[1][anim_pos].type){
+		case 0:
+			switch(animation[1][anim_pos].axis){
+				case 0:
+					virilha_d.set_deslocamento_x(animation[1][anim_pos].value);
+				break;
+
+				case 1:
+					virilha_d.set_deslocamento_y(animation[1][anim_pos].value);
+				break;
+
+				case 2:
+					virilha_d.set_deslocamento_z(animation[1][anim_pos].value);
+				break;
+			}
+		break;
+
+		case 1:
+			switch(animation[1][anim_pos].axis){
+				case 0:
+					virilha_d.set_rotacao_x(animation[1][anim_pos].value);
+				break;
+
+				case 1:
+					virilha_d.set_rotacao_y(animation[1][anim_pos].value);
+				break;
+
+				case 2:
+					virilha_d.set_rotacao_z(animation[1][anim_pos].value);
+				break;
+			}
+		break;
+	}
+
+	//virilha_e
+	switch(animation[2][anim_pos].type){
+		case 0:
+			switch(animation[2][anim_pos].axis){
+				case 0:
+					virilha_e.set_deslocamento_x(animation[2][anim_pos].value);
+				break;
+
+				case 1:
+					virilha_e.set_deslocamento_y(animation[2][anim_pos].value);
+				break;
+
+				case 2:
+					virilha_e.set_deslocamento_z(animation[2][anim_pos].value);
+				break;
+			}
+		break;
+
+		case 1:
+			switch(animation[2][anim_pos].axis){
+				case 0:
+					virilha_e.set_rotacao_x(animation[2][anim_pos].value);
+				break;
+
+				case 1:
+					virilha_e.set_rotacao_y(animation[2][anim_pos].value);
+				break;
+
+				case 2:
+					virilha_e.set_rotacao_z(animation[2][anim_pos].value);
+				break;
+			}
+		break;
+	}
+
+	//joelho_d
+	switch(animation[3][anim_pos].type){
+		case 0:
+			switch(animation[3][anim_pos].axis){
+				case 0:
+					joelho_d.set_deslocamento_x(animation[3][anim_pos].value);
+				break;
+
+				case 1:
+					joelho_d.set_deslocamento_y(animation[3][anim_pos].value);
+				break;
+
+				case 2:
+					joelho_d.set_deslocamento_z(animation[3][anim_pos].value);
+				break;
+			}
+		break;
+
+		case 1:
+			switch(animation[3][anim_pos].axis){
+				case 0:
+					joelho_d.set_rotacao_x(animation[3][anim_pos].value);
+				break;
+
+				case 1:
+					joelho_d.set_rotacao_y(animation[3][anim_pos].value);
+				break;
+
+				case 2:
+					joelho_d.set_rotacao_z(animation[3][anim_pos].value);
+				break;
+			}
+		break;
+	}
+
+	//joelho_e
+	switch(animation[4][anim_pos].type){
+		case 0:
+			switch(animation[4][anim_pos].axis){
+				case 0:
+					joelho_e.set_deslocamento_x(animation[4][anim_pos].value);
+				break;
+
+				case 1:
+					joelho_e.set_deslocamento_y(animation[4][anim_pos].value);
+				break;
+
+				case 2:
+					joelho_e.set_deslocamento_z(animation[4][anim_pos].value);
+				break;
+			}
+		break;
+
+		case 1:
+			switch(animation[4][anim_pos].axis){
+				case 0:
+					joelho_e.set_rotacao_x(animation[4][anim_pos].value);
+				break;
+
+				case 1:
+					joelho_e.set_rotacao_y(animation[4][anim_pos].value);
+				break;
+
+				case 2:
+					joelho_e.set_rotacao_z(animation[4][anim_pos].value);
+				break;
+			}
+		break;
+	}
+
+	//tornozelo_d
+	switch(animation[5][anim_pos].type){
+		case 0:
+			switch(animation[5][anim_pos].axis){
+				case 0:
+					tornozelo_d.set_deslocamento_x(animation[5][anim_pos].value);
+				break;
+
+				case 1:
+					tornozelo_d.set_deslocamento_y(animation[5][anim_pos].value);
+				break;
+
+				case 2:
+					tornozelo_d.set_deslocamento_z(animation[5][anim_pos].value);
+				break;
+			}
+		break;
+
+		case 1:
+			switch(animation[5][anim_pos].axis){
+				case 0:
+					tornozelo_d.set_rotacao_x(animation[5][anim_pos].value);
+				break;
+
+				case 1:
+					tornozelo_d.set_rotacao_y(animation[5][anim_pos].value);
+				break;
+
+				case 2:
+					tornozelo_d.set_rotacao_z(animation[5][anim_pos].value);
+				break;
+			}
+		break;
+	}
+
+	//tornozelo_e
+	switch(animation[6][anim_pos].type){
+		case 0:
+			switch(animation[6][anim_pos].axis){
+				case 0:
+					tornozelo_e.set_deslocamento_x(animation[6][anim_pos].value);
+				break;
+
+				case 1:
+					tornozelo_e.set_deslocamento_y(animation[6][anim_pos].value);
+				break;
+
+				case 2:
+					tornozelo_e.set_deslocamento_z(animation[6][anim_pos].value);
+				break;
+			}
+		break;
+
+		case 1:
+			switch(animation[6][anim_pos].axis){
+				case 0:
+					tornozelo_e.set_rotacao_x(animation[6][anim_pos].value);
+				break;
+
+				case 1:
+					tornozelo_e.set_rotacao_y(animation[6][anim_pos].value);
+				break;
+
+				case 2:
+					tornozelo_e.set_rotacao_z(animation[6][anim_pos].value);
+				break;
+			}
+		break;
+	}
+
+	//ponta_pe_d
+	switch(animation[7][anim_pos].type){
+		case 0:
+			switch(animation[7][anim_pos].axis){
+				case 0:
+					ponta_pe_d.set_deslocamento_x(animation[7][anim_pos].value);
+				break;
+
+				case 1:
+					ponta_pe_d.set_deslocamento_y(animation[7][anim_pos].value);
+				break;
+
+				case 2:
+					ponta_pe_d.set_deslocamento_z(animation[7][anim_pos].value);
+				break;
+			}
+		break;
+
+		case 1:
+			switch(animation[7][anim_pos].axis){
+				case 0:
+					ponta_pe_d.set_rotacao_x(animation[7][anim_pos].value);
+				break;
+
+				case 1:
+					ponta_pe_d.set_rotacao_y(animation[7][anim_pos].value);
+				break;
+
+				case 2:
+					ponta_pe_d.set_rotacao_z(animation[7][anim_pos].value);
+				break;
+			}
+		break;
+	}
+
+	//ponta_pe_e
+	switch(animation[8][anim_pos].type){
+		case 0:
+			switch(animation[8][anim_pos].axis){
+				case 0:
+					ponta_pe_e.set_deslocamento_x(animation[8][anim_pos].value);
+				break;
+
+				case 1:
+					ponta_pe_e.set_deslocamento_y(animation[8][anim_pos].value);
+				break;
+
+				case 2:
+					ponta_pe_e.set_deslocamento_z(animation[8][anim_pos].value);
+				break;
+			}
+		break;
+
+		case 1:
+			switch(animation[8][anim_pos].axis){
+				case 0:
+					ponta_pe_e.set_rotacao_x(animation[8][anim_pos].value);
+				break;
+
+				case 1:
+					ponta_pe_e.set_rotacao_y(animation[8][anim_pos].value);
+				break;
+
+				case 2:
+					ponta_pe_e.set_rotacao_z(animation[8][anim_pos].value);
+				break;
+			}
+		break;
+	}
+
+	//espinha_d_1
+	switch(animation[9][anim_pos].type){
+		case 0:
+			switch(animation[9][anim_pos].axis){
+				case 0:
+					espinha_d_1.set_deslocamento_x(animation[9][anim_pos].value);
+				break;
+
+				case 1:
+					espinha_d_1.set_deslocamento_y(animation[9][anim_pos].value);
+				break;
+
+				case 2:
+					espinha_d_1.set_deslocamento_z(animation[9][anim_pos].value);
+				break;
+			}
+		break;
+
+		case 1:
+			switch(animation[9][anim_pos].axis){
+				case 0:
+					espinha_d_1.set_rotacao_x(animation[9][anim_pos].value);
+				break;
+
+				case 1:
+					espinha_d_1.set_rotacao_y(animation[9][anim_pos].value);
+				break;
+
+				case 2:
+					espinha_d_1.set_rotacao_z(animation[9][anim_pos].value);
+				break;
+			}
+		break;
+	}
+
+	//espinha_d_2
+	switch(animation[10][anim_pos].type){
+		case 0:
+			switch(animation[10][anim_pos].axis){
+				case 0:
+					espinha_d_2.set_deslocamento_x(animation[10][anim_pos].value);
+				break;
+
+				case 1:
+					espinha_d_2.set_deslocamento_y(animation[10][anim_pos].value);
+				break;
+
+				case 2:
+					espinha_d_2.set_deslocamento_z(animation[10][anim_pos].value);
+				break;
+			}
+		break;
+
+		case 1:
+			switch(animation[10][anim_pos].axis){
+				case 0:
+					espinha_d_2.set_rotacao_x(animation[10][anim_pos].value);
+				break;
+
+				case 1:
+					espinha_d_2.set_rotacao_y(animation[10][anim_pos].value);
+				break;
+
+				case 2:
+					espinha_d_2.set_rotacao_z(animation[10][anim_pos].value);
+				break;
+			}
+		break;
+	}
+
+	//espinha_d_3
+	switch(animation[11][anim_pos].type){
+		case 0:
+			switch(animation[11][anim_pos].axis){
+				case 0:
+					espinha_d_3.set_deslocamento_x(animation[11][anim_pos].value);
+				break;
+
+				case 1:
+					espinha_d_3.set_deslocamento_y(animation[11][anim_pos].value);
+				break;
+
+				case 2:
+					espinha_d_3.set_deslocamento_z(animation[11][anim_pos].value);
+				break;
+			}
+		break;
+
+		case 1:
+			switch(animation[11][anim_pos].axis){
+				case 0:
+					espinha_d_3.set_rotacao_x(animation[11][anim_pos].value);
+				break;
+
+				case 1:
+					espinha_d_3.set_rotacao_y(animation[11][anim_pos].value);
+				break;
+
+				case 2:
+					espinha_d_3.set_rotacao_z(animation[11][anim_pos].value);
+				break;
+			}
+		break;
+	}
+
+	//ombro_d
+	switch(animation[12][anim_pos].type){
+		case 0:
+			switch(animation[12][anim_pos].axis){
+				case 0:
+					ombro_d.set_deslocamento_x(animation[12][anim_pos].value);
+				break;
+
+				case 1:
+					ombro_d.set_deslocamento_y(animation[12][anim_pos].value);
+				break;
+
+				case 2:
+					ombro_d.set_deslocamento_z(animation[12][anim_pos].value);
+				break;
+			}
+		break;
+
+		case 1:
+			switch(animation[12][anim_pos].axis){
+				case 0:
+					ombro_d.set_rotacao_x(animation[12][anim_pos].value);
+				break;
+
+				case 1:
+					ombro_d.set_rotacao_y(animation[12][anim_pos].value);
+				break;
+
+				case 2:
+					ombro_d.set_rotacao_z(animation[12][anim_pos].value);
+				break;
+			}
+		break;
+	}
+
+	//ombro_e
+	switch(animation[13][anim_pos].type){
+		case 0:
+			switch(animation[13][anim_pos].axis){
+				case 0:
+					ombro_e.set_deslocamento_x(animation[13][anim_pos].value);
+				break;
+
+				case 1:
+					ombro_e.set_deslocamento_y(animation[13][anim_pos].value);
+				break;
+
+				case 2:
+					ombro_e.set_deslocamento_z(animation[13][anim_pos].value);
+				break;
+			}
+		break;
+
+		case 1:
+			switch(animation[13][anim_pos].axis){
+				case 0:
+					ombro_e.set_rotacao_x(animation[13][anim_pos].value);
+				break;
+
+				case 1:
+					ombro_e.set_rotacao_y(animation[13][anim_pos].value);
+				break;
+
+				case 2:
+					ombro_e.set_rotacao_z(animation[13][anim_pos].value);
+				break;
+			}
+		break;
+	}
+
+	//cotovelo_d
+	switch(animation[14][anim_pos].type){
+		case 0:
+			switch(animation[14][anim_pos].axis){
+				case 0:
+					cotovelo_d.set_deslocamento_x(animation[14][anim_pos].value);
+				break;
+
+				case 1:
+					cotovelo_d.set_deslocamento_y(animation[14][anim_pos].value);
+				break;
+
+				case 2:
+					cotovelo_d.set_deslocamento_z(animation[14][anim_pos].value);
+				break;
+			}
+		break;
+
+		case 1:
+			switch(animation[14][anim_pos].axis){
+				case 0:
+					cotovelo_d.set_rotacao_x(animation[14][anim_pos].value);
+				break;
+
+				case 1:
+					cotovelo_d.set_rotacao_y(animation[14][anim_pos].value);
+				break;
+
+				case 2:
+					cotovelo_d.set_rotacao_z(animation[14][anim_pos].value);
+				break;
+			}
+		break;
+	}
+
+	//cotovelo_e
+	switch(animation[15][anim_pos].type){
+		case 0:
+			switch(animation[15][anim_pos].axis){
+				case 0:
+					cotovelo_e.set_deslocamento_x(animation[15][anim_pos].value);
+				break;
+
+				case 1:
+					cotovelo_e.set_deslocamento_y(animation[15][anim_pos].value);
+				break;
+
+				case 2:
+					cotovelo_e.set_deslocamento_z(animation[15][anim_pos].value);
+				break;
+			}
+		break;
+
+		case 1:
+			switch(animation[15][anim_pos].axis){
+				case 0:
+					cotovelo_e.set_rotacao_x(animation[15][anim_pos].value);
+				break;
+
+				case 1:
+					cotovelo_e.set_rotacao_y(animation[15][anim_pos].value);
+				break;
+
+				case 2:
+					cotovelo_e.set_rotacao_z(animation[15][anim_pos].value);
+				break;
+			}
+		break;
+	}
+
+	//pulso_d
+	switch(animation[16][anim_pos].type){
+		case 0:
+			switch(animation[16][anim_pos].axis){
+				case 0:
+					pulso_d.set_deslocamento_x(animation[16][anim_pos].value);
+				break;
+
+				case 1:
+					pulso_d.set_deslocamento_y(animation[16][anim_pos].value);
+				break;
+
+				case 2:
+					pulso_d.set_deslocamento_z(animation[16][anim_pos].value);
+				break;
+			}
+		break;
+
+		case 1:
+			switch(animation[16][anim_pos].axis){
+				case 0:
+					pulso_d.set_rotacao_x(animation[16][anim_pos].value);
+				break;
+
+				case 1:
+					pulso_d.set_rotacao_y(animation[16][anim_pos].value);
+				break;
+
+				case 2:
+					pulso_d.set_rotacao_z(animation[16][anim_pos].value);
+				break;
+			}
+		break;
+	}
+
+	//pulso_e
+	switch(animation[17][anim_pos].type){
+		case 0:
+			switch(animation[17][anim_pos].axis){
+				case 0:
+					pulso_e.set_deslocamento_x(animation[17][anim_pos].value);
+				break;
+
+				case 1:
+					pulso_e.set_deslocamento_y(animation[17][anim_pos].value);
+				break;
+
+				case 2:
+					pulso_e.set_deslocamento_z(animation[17][anim_pos].value);
+				break;
+			}
+		break;
+
+		case 1:
+			switch(animation[17][anim_pos].axis){
+				case 0:
+					pulso_e.set_rotacao_x(animation[17][anim_pos].value);
+				break;
+
+				case 1:
+					pulso_e.set_rotacao_y(animation[17][anim_pos].value);
+				break;
+
+				case 2:
+					pulso_e.set_rotacao_z(animation[17][anim_pos].value);
+				break;
+			}
+		break;
+	}
+
+	//junta_pescoco
+	switch(animation[18][anim_pos].type){
+		case 0:
+			switch(animation[18][anim_pos].axis){
+				case 0:
+					junta_pescoco.set_deslocamento_x(animation[18][anim_pos].value);
+				break;
+
+				case 1:
+					junta_pescoco.set_deslocamento_y(animation[18][anim_pos].value);
+				break;
+
+				case 2:
+					junta_pescoco.set_deslocamento_z(animation[18][anim_pos].value);
+				break;
+			}
+		break;
+
+		case 1:
+			switch(animation[18][anim_pos].axis){
+				case 0:
+					junta_pescoco.set_rotacao_x(animation[18][anim_pos].value);
+				break;
+
+				case 1:
+					junta_pescoco.set_rotacao_y(animation[18][anim_pos].value);
+				break;
+
+				case 2:
+					junta_pescoco.set_rotacao_z(animation[18][anim_pos].value);
+				break;
+			}
+		break;
+	}
+
+}
+
+void desenha_junta(Modelo m){
 	glPushMatrix();
-		glScalef(raio_juntas, raio_juntas, raio_juntas);
+		glScalef(m.get_largura(), m.get_largura(), m.get_largura());
 		glutSolidSphere(1.0f, 20, 20);
 	glPopMatrix();
 }
 
 void desenha_parte_cima(){
 	//desenha tronco_1
-	glColor3f(1.0f, 0.5f, 1.0f);
+	glColor3f(0.0f, 0.0f, 1.0f);
 	glTranslatef(tronco_1.get_largura() / 2, 0.0f, 0.0f);
 	glPushMatrix();
 		glScalef(tronco_1.get_largura(), tronco_1.get_altura(), tronco_1.get_profundidade());
@@ -79,15 +762,15 @@ void desenha_parte_cima(){
 	glPopMatrix();
 
 	//desenha a espinha_d_1
-	glColor3f(1.0f, 1.0f, 1.0f);
+	glColor3f(0.0f, 0.0f, 1.0f);
 	glTranslatef(tronco_1.get_largura() / 2, 0.0f, 0.0f);
 	glRotatef(espinha_d_1.get_rotacao_x(), 1, 0, 0);
 	glRotatef(espinha_d_1.get_rotacao_y(), 0, 1, 0);
 	glRotatef(espinha_d_1.get_rotacao_z(), 0, 0, 1);
-	desenha_junta();
+	desenha_junta(espinha_d_1);
 
 	//desenha tronco_2
-	glColor3f(1.0f, 0.5f, 1.0f);
+	glColor3f(1.0f, 0.0f, 0.0f);
 	glTranslatef(tronco_2.get_largura() / 2, 0.0f, 0.0f);
 	glPushMatrix();
 		glScalef(tronco_2.get_largura(), tronco_2.get_altura(), tronco_2.get_profundidade());
@@ -95,17 +778,17 @@ void desenha_parte_cima(){
 	glPopMatrix();
 
 	//desenha a espinha_d_2
-	glColor3f(1.0f, 1.0f, 1.0f);
+	glColor3f(1.0f, 0.0f, 0.0f);
 	glTranslatef(tronco_2.get_largura() / 2, 0.0f, 0.0f);
 	glRotatef(espinha_d_2.get_rotacao_x(), 1, 0, 0);
 	glRotatef(espinha_d_2.get_rotacao_y(), 0, 1, 0);
 	glRotatef(espinha_d_2.get_rotacao_z(), 0, 0, 1);
-	desenha_junta();
+	desenha_junta(espinha_d_2);
 
 
 
 	//desenha tronco_3
-	glColor3f(1.0f, 0.5f, 1.0f);
+	glColor3f(1.0f, 0.0f, 0.0f);
 	glTranslatef(tronco_3.get_largura() / 2, 0.0f, 0.0f);
 	glPushMatrix();
 		glScalef(tronco_3.get_largura(), tronco_3.get_altura(), tronco_3.get_profundidade());
@@ -113,16 +796,16 @@ void desenha_parte_cima(){
 	glPopMatrix();
 
 	//desenha a espinha_d_3
-	glColor3f(1.0f, 1.0f, 1.0f);
+	glColor3f(1.0f, 0.0f, 0.0f);
 	glTranslatef(tronco_3.get_largura() / 2, 0.0f, 0.0f);
 	glRotatef(espinha_d_3.get_rotacao_x(), 1, 0, 0);
 	glRotatef(espinha_d_3.get_rotacao_y(), 0, 1, 0);
 	glRotatef(espinha_d_3.get_rotacao_z(), 0, 0, 1);
-	desenha_junta();
+	desenha_junta(espinha_d_3);
 
 	glPushMatrix();
 		//desenha pescoco
-		glColor3f(1.0f, 0.5f, 1.0f);
+		glColor3f(1.0f, 0.0f, 0.0f);
 		glTranslatef(pescoco.get_largura() / 2, 0.0f, 0.0f);
 		glPushMatrix();
 			glScalef(pescoco.get_largura(), pescoco.get_altura(), pescoco.get_profundidade());
@@ -130,15 +813,15 @@ void desenha_parte_cima(){
 		glPopMatrix();
 
 		//desenha junta_pescoco
-		glColor3f(1.0f, 1.0f, 1.0f);
+		glColor3f(1.0f, 0.0f, 0.0f);
 		glTranslatef(pescoco.get_largura() / 2, 0.0f, 0.0f);
 		glRotatef(junta_pescoco.get_rotacao_x(), 1, 0, 0);
 		glRotatef(junta_pescoco.get_rotacao_y(), 0, 1, 0);
 		glRotatef(junta_pescoco.get_rotacao_z(), 0, 0, 1);
-		desenha_junta();
+		desenha_junta(junta_pescoco);
 
 		//desenha cabeca
-		glColor3f(1.0f, 0.5f, 1.0f);
+		glColor3f(1.0f, 0.0f, 0.0f);
 		glTranslatef(cabeca.get_largura() / 2, 0.0f, 0.0f);
 		glPushMatrix();
 			glScalef(cabeca.get_largura(), cabeca.get_altura(), cabeca.get_profundidade());
@@ -152,7 +835,7 @@ void desenha_parte_cima(){
 		glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
 
 		//desenha saboneteira_d
-		glColor3f(1.0f, 0.5f, 1.0f);
+		glColor3f(1.0f, 0.0f, 0.0f);
 		glTranslatef(saboneteira_d.get_largura() / 2, 0.0f, 0.0f);
 		glPushMatrix();
 			glScalef(saboneteira_d.get_largura(), saboneteira_d.get_altura(), saboneteira_d.get_profundidade());
@@ -160,15 +843,15 @@ void desenha_parte_cima(){
 		glPopMatrix();
 
 		//desenha a ombro_d
-		glColor3f(1.0f, 1.0f, 1.0f);
+		glColor3f(0.0f, 0.0f, 1.0f);
 		glTranslatef(saboneteira_d.get_largura() / 2, 0.0f, 0.0f);
 		glRotatef(ombro_d.get_rotacao_x(), 1, 0, 0);
 		glRotatef(ombro_d.get_rotacao_y(), 0, 1, 0);
 		glRotatef(ombro_d.get_rotacao_z(), 0, 0, 1);
-		desenha_junta();
+		desenha_junta(ombro_d);
 
 		//desenha braco_d
-		glColor3f(1.0f, 0.5f, 1.0f);
+		glColor3f(0.0f, 0.0f, 1.0f);
 		glTranslatef(braco_d.get_largura() / 2, 0.0f, 0.0f);
 		glPushMatrix();
 			glScalef(braco_d.get_largura(), braco_d.get_altura(), braco_d.get_profundidade());
@@ -176,15 +859,15 @@ void desenha_parte_cima(){
 		glPopMatrix();
 
 		//desenha a cotovelo_d
-		glColor3f(1.0f, 1.0f, 1.0f);
+		glColor3f(1.0f, 0.0f, 0.0f);
 		glTranslatef(braco_d.get_largura() / 2, 0.0f, 0.0f);
 		glRotatef(cotovelo_d.get_rotacao_x(), 1, 0, 0);
 		glRotatef(cotovelo_d.get_rotacao_y(), 0, 1, 0);
 		glRotatef(cotovelo_d.get_rotacao_z(), 0, 0, 1);
-		desenha_junta();
+		desenha_junta(cotovelo_d);
 
 		//desenha antebraco_d
-		glColor3f(1.0f, 0.5f, 1.0f);
+		glColor3f(1.0f, 0.0f, 0.0f);
 		glTranslatef(antebraco_d.get_largura() / 2, 0.0f, 0.0f);
 		glPushMatrix();
 			glScalef(antebraco_d.get_largura(), antebraco_d.get_altura(), antebraco_d.get_profundidade());
@@ -192,15 +875,15 @@ void desenha_parte_cima(){
 		glPopMatrix();
 
 		//desenha a punho
-		glColor3f(1.0f, 1.0f, 1.0f);
+		glColor3f(1.0f, 0.0f, 0.0f);
 		glTranslatef(antebraco_d.get_largura() / 2, 0.0f, 0.0f);
 		glRotatef(pulso_d.get_rotacao_x(), 1, 0, 0);
 		glRotatef(pulso_d.get_rotacao_y(), 0, 1, 0);
 		glRotatef(pulso_d.get_rotacao_z(), 0, 0, 1);
-		desenha_junta();
+		desenha_junta(pulso_d);
 
 		//desenha mao_d
-		glColor3f(1.0f, 0.5f, 1.0f);
+		glColor3f(1.0f, 0.0f, 0.0f);
 		glTranslatef(mao_d.get_largura() / 2, 0.0f, 0.0f);
 		glPushMatrix();
 			glScalef(mao_d.get_largura(), mao_d.get_altura(), mao_d.get_profundidade());
@@ -212,39 +895,39 @@ void desenha_parte_cima(){
 	glRotatef(-90.0f, 0.0f, 0.0f, 1.0f);
 
 	//desenha saboneteira_d
-	glColor3f(1.0f, 0.5f, 1.0f);
+	glColor3f(1.0f, 0.0f, 0.0f);
 	glTranslatef(saboneteira_e.get_largura() / 2, 0.0f, 0.0f);
 	glPushMatrix();
 		glScalef(saboneteira_e.get_largura(), saboneteira_e.get_altura(), saboneteira_e.get_profundidade());
 		glutSolidCube(1.0f);
 	glPopMatrix();
 
-	//desenha a ombro_d
-	glColor3f(1.0f, 1.0f, 1.0f);
+	//desenha a ombro_e
+	glColor3f(0.0f, 0.0f, 1.0f);
 	glTranslatef(saboneteira_e.get_largura() / 2, 0.0f, 0.0f);
 	glRotatef(ombro_e.get_rotacao_x(), 1, 0, 0);
 	glRotatef(ombro_e.get_rotacao_y(), 0, 1, 0);
 	glRotatef(ombro_e.get_rotacao_z(), 0, 0, 1);
-	desenha_junta();
+	desenha_junta(ombro_e);
 
 	//desenha braco_d
-	glColor3f(1.0f, 0.5f, 1.0f);
+	glColor3f(0.0f, 0.0f, 1.0f);
 	glTranslatef(braco_e.get_largura() / 2, 0.0f, 0.0f);
 	glPushMatrix();
 		glScalef(braco_e.get_largura(), braco_e.get_altura(), braco_e.get_profundidade());
 		glutSolidCube(1.0f);
 	glPopMatrix();
 
-	//desenha a cotovelo_d
-	glColor3f(1.0f, 1.0f, 1.0f);
+	//desenha a cotovelo_e
+	glColor3f(1.0f, 0.0f, 0.0f);
 	glTranslatef(braco_e.get_largura() / 2, 0.0f, 0.0f);
 	glRotatef(cotovelo_e.get_rotacao_x(), 1, 0, 0);
 	glRotatef(cotovelo_e.get_rotacao_y(), 0, 1, 0);
 	glRotatef(cotovelo_e.get_rotacao_z(), 0, 0, 1);
-	desenha_junta();
+	desenha_junta(cotovelo_e);
 
 	//desenha antebraco_d
-	glColor3f(1.0f, 0.5f, 1.0f);
+	glColor3f(1.0f, 0.0f, 0.0f);
 	glTranslatef(antebraco_e.get_largura() / 2, 0.0f, 0.0f);
 	glPushMatrix();
 		glScalef(antebraco_e.get_largura(), antebraco_e.get_altura(), antebraco_e.get_profundidade());
@@ -252,15 +935,15 @@ void desenha_parte_cima(){
 	glPopMatrix();
 
 	//desenha a punho
-	glColor3f(1.0f, 1.0f, 1.0f);
+	glColor3f(1.0f, 0.0f, 0.0f);
 	glTranslatef(antebraco_e.get_largura() / 2, 0.0f, 0.0f);
 	glRotatef(pulso_e.get_rotacao_x(), 1, 0, 0);
 	glRotatef(pulso_e.get_rotacao_y(), 0, 1, 0);
 	glRotatef(pulso_e.get_rotacao_z(), 0, 0, 1);
-	desenha_junta();
+	desenha_junta(pulso_e);
 
 	//desenha mao_d
-	glColor3f(1.0f, 0.5f, 1.0f);
+	glColor3f(1.0f, 0.0f, 0.0f);
 	glTranslatef(mao_e.get_largura() / 2, 0.0f, 0.0f);
 	glPushMatrix();
 		glScalef(mao_e.get_largura(), mao_e.get_altura(), mao_e.get_profundidade());
@@ -273,7 +956,7 @@ void desenha_parte_cima(){
 
 void desenha_parte_baixo(){
 	//desenha o quadril
-	glColor3f(1.0f, 0.5f, 1.0f);
+	glColor3f(1.0f, 0.0f, 0.0f);
 	glTranslatef(quadril.get_deslocamento_x(), quadril.get_deslocamento_y(), quadril.get_deslocamento_z());
 	glPushMatrix();
 		glScalef(quadril.get_largura(), quadril.get_altura(), quadril.get_profundidade());
@@ -282,15 +965,15 @@ void desenha_parte_baixo(){
 
 	//desenha a virilha_d
 	glPushMatrix();
-		glColor3f(1.0f, 1.0f, 1.0f);
+		glColor3f(0.0f, 0.0f, 1.0f);
 		glTranslatef(quadril.get_largura() / 2, 0.0f, 0.0f);
 		glRotatef(virilha_d.get_rotacao_x(), 1, 0, 0);
 		glRotatef(virilha_d.get_rotacao_y(), 0, 1, 0);
 		glRotatef(virilha_d.get_rotacao_z(), 0, 0, 1);
-		desenha_junta();
+		desenha_junta(virilha_d);
 
 		//desenha perna
-		glColor3f(1.0f, 0.5f, 1.0f);
+		glColor3f(0.0f, 0.0f, 1.0f);
 		glTranslatef(perna_d.get_largura() / 2, 0.0f, 0.0f);
 		glPushMatrix();
 			glScalef(perna_d.get_largura(), perna_d.get_altura(), perna_d.get_profundidade());
@@ -298,15 +981,15 @@ void desenha_parte_baixo(){
 		glPopMatrix();
 
 		//desenha o joelho direito
-		glColor3f(1.0f, 1.0f, 1.0f);
+		glColor3f(0.0f, 0.0f, 1.0f);
 		glTranslatef(perna_d.get_largura() / 2, 0.0f, 0.0f);
 		glRotatef(joelho_d.get_rotacao_x(), 1, 0, 0);
 		glRotatef(joelho_d.get_rotacao_y(), 0, 1, 0);
 		glRotatef(joelho_d.get_rotacao_z(), 0, 0, 1);
-		desenha_junta();
+		desenha_junta(joelho_d);
 
 		//desenha canela direita
-		glColor3f(1.0f, 0.5f, 1.0f);
+		glColor3f(1.0f, 0.0f, 0.0f);
 		glTranslatef(canela_d.get_largura() / 2, 0.0f, 0.0f);
 		glPushMatrix();
 			glScalef(canela_d.get_largura(), canela_d.get_altura(), canela_d.get_profundidade());
@@ -314,15 +997,15 @@ void desenha_parte_baixo(){
 		glPopMatrix();
 
 		//desenha o tornozelo direito
-		glColor3f(1.0f, 1.0f, 1.0f);
+		glColor3f(1.0f, 0.0f, 0.0f);
 		glTranslatef(canela_d.get_largura() / 2, 0.0f, 0.0f);
 		glRotatef(tornozelo_d.get_rotacao_x(), 1, 0, 0);
 		glRotatef(tornozelo_d.get_rotacao_y(), 0, 1, 0);
 		glRotatef(tornozelo_d.get_rotacao_z(), 0, 0, 1);
-		desenha_junta();
+		desenha_junta(tornozelo_d);
 
 		//desenha pe direita
-		glColor3f(1.0f, 0.5f, 1.0f);
+		glColor3f(1.0f, 0.0f, 0.0f);
 		glTranslatef(pe_d.get_largura() / 2, 0.0f, 0.0f);
 		glPushMatrix();
 			glScalef(pe_d.get_largura(), pe_d.get_altura(), pe_d.get_profundidade());
@@ -330,38 +1013,34 @@ void desenha_parte_baixo(){
 		glPopMatrix();
 
 		//desenha o ponta pe direito
-		glColor3f(1.0f, 1.0f, 1.0f);
+		glColor3f(1.0f, 0.0f, 0.0f);
 		glTranslatef(pe_d.get_largura() / 2, 0.0f, 0.0f);
 		glRotatef(ponta_pe_d.get_rotacao_x(), 1, 0, 0);
 		glRotatef(ponta_pe_d.get_rotacao_y(), 0, 1, 0);
 		glRotatef(ponta_pe_d.get_rotacao_z(), 0, 0, 1);
-		desenha_junta();
+		desenha_junta(ponta_pe_d);
 
 		//desenha dedos direita
-		glColor3f(1.0f, 0.5f, 1.0f);
+		glColor3f(1.0f, 0.0f, 0.0f);
 		glTranslatef(dedos_d.get_largura() / 2, 0.0f, 0.0f);
 		glPushMatrix();
 			glScalef(dedos_d.get_largura(), dedos_d.get_altura(), dedos_d.get_profundidade());
 			glutSolidCube(1.0f);
 		glPopMatrix();
 
-
-
-
-
 	glPopMatrix();
 
 	//desenha a virilha_e
 	glPushMatrix();
-		glColor3f(1.0f, 1.0f, 1.0f);
+		glColor3f(0.0f, 0.0f, 1.0f);
 		glTranslatef(-(quadril.get_largura() / 2), 0.0f, 0.0f);
 		glRotatef(virilha_e.get_rotacao_x(), 1, 0, 0);
 		glRotatef(virilha_e.get_rotacao_y(), 0, 1, 0);
 		glRotatef(virilha_e.get_rotacao_z(), 0, 0, 1);
-		desenha_junta();
+		desenha_junta(virilha_e);
 
 		// //desenha esquerda
-		glColor3f(1.0f, 0.5f, 1.0f);
+		glColor3f(0.0f, 0.0f, 1.0f);
 		glTranslatef(perna_e.get_largura() / 2, 0.0f, 0.0f);
 		glPushMatrix();
 			glScalef(perna_e.get_largura(), perna_e.get_altura(), perna_e.get_profundidade());
@@ -369,15 +1048,15 @@ void desenha_parte_baixo(){
 		glPopMatrix();
 
 		//desenha o joelho esquerdo
-		glColor3f(1.0f, 1.0f, 1.0f);
+		glColor3f(1.0f, 0.0f, 0.0f);
 		glTranslatef(perna_e.get_largura() / 2, 0.0f, 0.0f);
 		glRotatef(joelho_e.get_rotacao_x(), 1, 0, 0);
 		glRotatef(joelho_e.get_rotacao_y(), 0, 1, 0);
 		glRotatef(joelho_e.get_rotacao_z(), 0, 0, 1);
-		desenha_junta();
+		desenha_junta(joelho_e);
 
 		//desenha canela esquerda
-		glColor3f(1.0f, 0.5f, 1.0f);
+		glColor3f(1.0f, 0.0f, 0.0f);
 		glTranslatef(canela_e.get_largura() / 2, 0.0f, 0.0f);
 		glPushMatrix();
 			glScalef(canela_e.get_largura(), canela_e.get_altura(), canela_e.get_profundidade());
@@ -385,15 +1064,15 @@ void desenha_parte_baixo(){
 		glPopMatrix();
 
 		//desenha o tornozelo esquerdo
-		glColor3f(1.0f, 1.0f, 1.0f);
+		glColor3f(1.0f, 0.0f, 0.0f);
 		glTranslatef(canela_e.get_largura() / 2, 0.0f, 0.0f);
 		glRotatef(tornozelo_e.get_rotacao_x(), 1, 0, 0);
 		glRotatef(tornozelo_e.get_rotacao_y(), 0, 1, 0);
 		glRotatef(tornozelo_e.get_rotacao_z(), 0, 0, 1);
-		desenha_junta();
+		desenha_junta(tornozelo_e);
 
 		//desenha pe esquerdo
-		glColor3f(1.0f, 0.5f, 1.0f);
+		glColor3f(1.0f, 0.0f, 0.0f);
 		glTranslatef(pe_e.get_largura() / 2, 0.0f, 0.0f);
 		glPushMatrix();
 			glScalef(pe_e.get_largura(), pe_e.get_altura(), pe_e.get_profundidade());
@@ -401,15 +1080,15 @@ void desenha_parte_baixo(){
 		glPopMatrix();
 
 		//desenha o ponta pe direito
-		glColor3f(1.0f, 1.0f, 1.0f);
+		glColor3f(1.0f, 0.0f, 0.0f);
 		glTranslatef(pe_e.get_largura() / 2, 0.0f, 0.0f);
 		glRotatef(ponta_pe_e.get_rotacao_x(), 1, 0, 0);
 		glRotatef(ponta_pe_e.get_rotacao_y(), 0, 1, 0);
 		glRotatef(ponta_pe_e.get_rotacao_z(), 0, 0, 1);
-		desenha_junta();
+		desenha_junta(ponta_pe_e);
 
 		//desenha dedos direita
-		glColor3f(1.0f, 0.5f, 1.0f);
+		glColor3f(1.0f, 0.0f, 0.0f);
 		glTranslatef(dedos_e.get_largura() / 2, 0.0f, 0.0f);
 		glPushMatrix();
 			glScalef(dedos_e.get_largura(), dedos_e.get_altura(), dedos_e.get_profundidade());
@@ -436,8 +1115,11 @@ void DesenhaEixos(void)
 }
 
 // Função callback chamada para fazer o desenho
-void Desenha(void)
-{
+void Desenha(void){
+
+	//anim_pos++;
+
+	usleep(20000);
 
 	// Especifica sistema de coordenadas do modelo
 	glMatrixMode(GL_MODELVIEW);
@@ -455,7 +1137,7 @@ void Desenha(void)
 	glRotatef(cintura.get_rotacao_x(), 1, 0, 0);
 	glRotatef(cintura.get_rotacao_y(), 0, 1, 0);
 	glRotatef(cintura.get_rotacao_z(), 0, 0, 1);
-	desenha_junta();
+	desenha_junta(cintura);
 
 	glPushMatrix();
 		glRotatef(90.0f, 0.0f, 0.0f, 1.0f);
@@ -467,6 +1149,8 @@ void Desenha(void)
 	glPopMatrix();
 
 	glutSwapBuffers();
+
+	glutPostRedisplay();
 }
 
 // Inicializa parâmetros de rendering
@@ -557,9 +1241,46 @@ void GerenciaMouse(int button, int state, int x, int y)
 	glutPostRedisplay();
 }
 
+void keyBoardSpecialfunc(int key, int x, int y){
+	if(key == 112){
+		SHIFT = 1;
+	}else
+	if(key == 114){
+		CTRL = 1;
+	}else
+	if(key == 116){
+		ALT = 1;
+	}
+}
+
+void keyBoardSpecialUpfunc(int key, int x, int y){
+	if(key == 112){
+		SHIFT = 0;
+	}else
+	if(key == 114){
+		CTRL = 0;
+	}else
+	if(key == 116){
+		ALT = 0;
+	}
+}
+
 void keyBoardfunc(unsigned char key, int x, int y){
 
+
+	cout << "KF " << int(key) << endl;
+
 	usleep(100);
+
+	if(SHIFT){
+		cout << "######### SHIFT #############" << endl;
+	}else
+	if(CTRL){
+		cout << "######### CTRL #############" << endl;
+	}else
+	if(ALT){
+		cout << "######### ALT #############" << endl;
+	}
 
 	if(key == 100){
 		cintura.set_deslocamento_y(cintura.get_deslocamento_y() + 3);
@@ -600,9 +1321,6 @@ void keyBoardfunc(unsigned char key, int x, int y){
 		}
 	}
 
-
-
-
 	glutPostRedisplay();
 }
 
@@ -617,7 +1335,7 @@ int main(int argc, char** argv)
 	tornozelo_e.set_rotacao_y(-90.0f);
 
 	ombro_d.set_rotacao_z(90.0f);
-	ombro_e.set_rotacao_y(-90.0f);
+	ombro_e.set_rotacao_z(-90.0f);
 
 	//abrir perna(eixo z)
 	//levantar perna(eixo x)
@@ -634,7 +1352,11 @@ int main(int argc, char** argv)
 	glutDisplayFunc(Desenha);
     glutReshapeFunc(AlteraTamanhoJanela);
 	glutMouseFunc(GerenciaMouse);
+	//glutSetKeyRepeat(1);
 	glutKeyboardFunc(&keyBoardfunc);
+	glutSpecialFunc(&keyBoardSpecialfunc);
+	glutSpecialUpFunc(&keyBoardSpecialUpfunc);
 	Inicializa();
 	glutMainLoop();
+
 }
