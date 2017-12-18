@@ -1250,6 +1250,8 @@ void keyBoardSpecialfunc(int key, int x, int y){
 	}else
 	if(key == 116){
 		ALT = 1;
+	}else{
+		cout << key << endl;
 	}
 }
 
@@ -1279,7 +1281,7 @@ void keyBoardfunc(unsigned char key, int x, int y){
 		// }
 	}else
 	if(CTRL){
-		cout << "SHIFT + " << int(key) << endl;
+		cout << "CTRL + " << int(key) << endl;
 		// if(key == 0){
 		// 	cintura.set_rotacao_y(cintura.get_rotacao_y() + 3)
 		// }else
@@ -1288,7 +1290,7 @@ void keyBoardfunc(unsigned char key, int x, int y){
 		// }
 	}else
 	if(ALT){
-		cout << "SHIFT + " << int(key) << endl;
+		cout << "ALT + " << int(key) << endl;
 		// if(key == 0){
 		// 	cintura.set_rotacao_z(cintura.get_rotacao_z() + 3)
 		// }else
