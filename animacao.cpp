@@ -15,14 +15,17 @@ GLfloat angle, fAspect;
 float raio_juntas = 2.0f;
 int joelho_sentido = 0;
 int anim_pos = 0;
+const int max_frames = 20;
 
 int CTRL = 0;
 int ALT = 0;
 int SHIFT = 0;
 
-ifstream matriz_s;
+int play = 0;
 
-Move animation[19][100];
+ofstream matriz_s;
+
+Move animation[19][max_frames];
 
 //Juntas
 Move cintura_s;
@@ -96,9 +99,306 @@ Modelo antebraco_d(16.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 Modelo mao_e(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 Modelo mao_d(4.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
+void load_animation(){
+	anim_pos = 0;
+	ifstream in;
+	in.open("saida.txt", fstream::in);
+	float t_x;
+	float t_y;
+	float t_z;
+	float r_x;
+	float r_y;
+	float r_z;
+
+	for(int j = 0; j < max_frames; j++){
+		for(int i = 0; i < 19; i++){
+			in >> t_x;
+			in >> t_y;
+			in >> t_z;
+			in >> r_x;
+			in >> r_y;
+			in >> r_z;
+
+			animation[i][j].t_x = t_x;
+			animation[i][j].t_y = t_y;
+			animation[i][j].t_z = t_z;
+			animation[i][j].r_x = r_x;
+			animation[i][j].r_y = r_y;
+			animation[i][j].r_z = r_z;
+
+		}
+	}
+}
+
 
 void animate(){
 
+	// cintura.set_deslocamento_x(cintura.get_deslocamento_x() + animation[0][anim_pos].t_x);
+	// cintura.set_deslocamento_z(animation[0][anim_pos].t_y);
+	// cintura.set_deslocamento_z(animation[0][anim_pos].t_z);
+	// cintura.set_rotacao_x(animation[0][anim_pos].r_x);
+	// cintura.set_rotacao_y(animation[0][anim_pos].r_y);
+	// cintura.set_rotacao_z(animation[0][anim_pos].r_z);
+    //
+	// virilha_d.set_deslocamento_x(animation[1][anim_pos].t_x);
+	// virilha_d.set_deslocamento_z(animation[1][anim_pos].t_y);
+	// virilha_d.set_deslocamento_z(animation[1][anim_pos].t_z);
+	// virilha_d.set_rotacao_x(animation[1][anim_pos].r_x);
+	// virilha_d.set_rotacao_y(animation[1][anim_pos].r_y);
+	// virilha_d.set_rotacao_z(animation[1][anim_pos].r_z);
+    //
+	// virilha_e.set_deslocamento_x(animation[2][anim_pos].t_x);
+	// virilha_e.set_deslocamento_z(animation[2][anim_pos].t_y);
+	// virilha_e.set_deslocamento_z(animation[2][anim_pos].t_z);
+	// virilha_e.set_rotacao_x(animation[2][anim_pos].r_x);
+	// virilha_e.set_rotacao_y(animation[2][anim_pos].r_y);
+	// virilha_e.set_rotacao_z(animation[2][anim_pos].r_z);
+    //
+	// joelho_d.set_deslocamento_x(animation[3][anim_pos].t_x);
+	// joelho_d.set_deslocamento_z(animation[3][anim_pos].t_y);
+	// joelho_d.set_deslocamento_z(animation[3][anim_pos].t_z);
+	// joelho_d.set_rotacao_x(animation[3][anim_pos].r_x);
+	// joelho_d.set_rotacao_y(animation[3][anim_pos].r_y);
+	// joelho_d.set_rotacao_z(animation[3][anim_pos].r_z);
+    //
+	// joelho_e.set_deslocamento_x(animation[4][anim_pos].t_x);
+	// joelho_e.set_deslocamento_z(animation[4][anim_pos].t_y);
+	// joelho_e.set_deslocamento_z(animation[4][anim_pos].t_z);
+	// joelho_e.set_rotacao_x(animation[4][anim_pos].r_x);
+	// joelho_e.set_rotacao_y(animation[4][anim_pos].r_y);
+	// joelho_e.set_rotacao_z(animation[4][anim_pos].r_z);
+    //
+	// tornozelo_d.set_deslocamento_x(animation[5][anim_pos].t_x);
+	// tornozelo_d.set_deslocamento_z(animation[5][anim_pos].t_y);
+	// tornozelo_d.set_deslocamento_z(animation[5][anim_pos].t_z);
+	// tornozelo_d.set_rotacao_x(animation[5][anim_pos].r_x);
+	// tornozelo_d.set_rotacao_y(animation[5][anim_pos].r_y);
+	// tornozelo_d.set_rotacao_z(animation[5][anim_pos].r_z);
+    //
+	// tornozelo_e.set_deslocamento_x(animation[6][anim_pos].t_x);
+	// tornozelo_e.set_deslocamento_z(animation[6][anim_pos].t_y);
+	// tornozelo_e.set_deslocamento_z(animation[6][anim_pos].t_z);
+	// tornozelo_e.set_rotacao_x(animation[6][anim_pos].r_x);
+	// tornozelo_e.set_rotacao_y(animation[6][anim_pos].r_y);
+	// tornozelo_e.set_rotacao_z(animation[6][anim_pos].r_z);
+    //
+	// ponta_pe_d.set_deslocamento_x(animation[7][anim_pos].t_x);
+	// ponta_pe_d.set_deslocamento_z(animation[7][anim_pos].t_y);
+	// ponta_pe_d.set_deslocamento_z(animation[7][anim_pos].t_z);
+	// ponta_pe_d.set_rotacao_x(animation[7][anim_pos].r_x);
+	// ponta_pe_d.set_rotacao_y(animation[7][anim_pos].r_y);
+	// ponta_pe_d.set_rotacao_z(animation[7][anim_pos].r_z);
+    //
+	// ponta_pe_e.set_deslocamento_x(animation[8][anim_pos].t_x);
+	// ponta_pe_e.set_deslocamento_z(animation[8][anim_pos].t_y);
+	// ponta_pe_e.set_deslocamento_z(animation[8][anim_pos].t_z);
+	// ponta_pe_e.set_rotacao_x(animation[8][anim_pos].r_x);
+	// ponta_pe_e.set_rotacao_y(animation[8][anim_pos].r_y);
+	// ponta_pe_e.set_rotacao_z(animation[8][anim_pos].r_z);
+    //
+	// espinha_d_1.set_deslocamento_x(animation[9][anim_pos].t_x);
+	// espinha_d_1.set_deslocamento_z(animation[9][anim_pos].t_y);
+	// espinha_d_1.set_deslocamento_z(animation[9][anim_pos].t_z);
+	// espinha_d_1.set_rotacao_x(animation[9][anim_pos].r_x);
+	// espinha_d_1.set_rotacao_y(animation[9][anim_pos].r_y);
+	// espinha_d_1.set_rotacao_z(animation[9][anim_pos].r_z);
+    //
+	// espinha_d_2.set_deslocamento_x(animation[10][anim_pos].t_x);
+	// espinha_d_2.set_deslocamento_z(animation[10][anim_pos].t_y);
+	// espinha_d_2.set_deslocamento_z(animation[10][anim_pos].t_z);
+	// espinha_d_2.set_rotacao_x(animation[10][anim_pos].r_x);
+	// espinha_d_2.set_rotacao_y(animation[10][anim_pos].r_y);
+	// espinha_d_2.set_rotacao_z(animation[10][anim_pos].r_z);
+    //
+	// espinha_d_3.set_deslocamento_x(animation[11][anim_pos].t_x);
+	// espinha_d_3.set_deslocamento_z(animation[11][anim_pos].t_y);
+	// espinha_d_3.set_deslocamento_z(animation[11][anim_pos].t_z);
+	// espinha_d_3.set_rotacao_x(animation[11][anim_pos].r_x);
+	// espinha_d_3.set_rotacao_y(animation[11][anim_pos].r_y);
+	// espinha_d_3.set_rotacao_z(animation[11][anim_pos].r_z);
+    //
+	// ombro_d.set_deslocamento_x(animation[12][anim_pos].t_x);
+	// ombro_d.set_deslocamento_z(animation[12][anim_pos].t_y);
+	// ombro_d.set_deslocamento_z(animation[12][anim_pos].t_z);
+	// ombro_d.set_rotacao_x(animation[12][anim_pos].r_x);
+	// ombro_d.set_rotacao_y(animation[12][anim_pos].r_y);
+	// ombro_d.set_rotacao_z(animation[12][anim_pos].r_z);
+    //
+	// ombro_e.set_deslocamento_x(animation[13][anim_pos].t_x);
+	// ombro_e.set_deslocamento_z(animation[13][anim_pos].t_y);
+	// ombro_e.set_deslocamento_z(animation[13][anim_pos].t_z);
+	// ombro_e.set_rotacao_x(animation[13][anim_pos].r_x);
+	// ombro_e.set_rotacao_y(animation[13][anim_pos].r_y);
+	// ombro_e.set_rotacao_z(animation[13][anim_pos].r_z);
+    //
+	// cotovelo_d.set_deslocamento_x(animation[14][anim_pos].t_x);
+	// cotovelo_d.set_deslocamento_z(animation[14][anim_pos].t_y);
+	// cotovelo_d.set_deslocamento_z(animation[14][anim_pos].t_z);
+	// cotovelo_d.set_rotacao_x(animation[14][anim_pos].r_x);
+	// cotovelo_d.set_rotacao_y(animation[14][anim_pos].r_y);
+	// cotovelo_d.set_rotacao_z(animation[14][anim_pos].r_z);
+    //
+	// cotovelo_e.set_deslocamento_x(animation[15][anim_pos].t_x);
+	// cotovelo_e.set_deslocamento_z(animation[15][anim_pos].t_y);
+	// cotovelo_e.set_deslocamento_z(animation[15][anim_pos].t_z);
+	// cotovelo_e.set_rotacao_x(animation[15][anim_pos].r_x);
+	// cotovelo_e.set_rotacao_y(animation[15][anim_pos].r_y);
+	// cotovelo_e.set_rotacao_z(animation[15][anim_pos].r_z);
+    //
+	// pulso_d.set_deslocamento_x(animation[16][anim_pos].t_x);
+	// pulso_d.set_deslocamento_z(animation[16][anim_pos].t_y);
+	// pulso_d.set_deslocamento_z(animation[16][anim_pos].t_z);
+	// pulso_d.set_rotacao_x(animation[16][anim_pos].r_x);
+	// pulso_d.set_rotacao_y(animation[16][anim_pos].r_y);
+	// pulso_d.set_rotacao_z(animation[16][anim_pos].r_z);
+    //
+	// pulso_e.set_deslocamento_x(animation[17][anim_pos].t_x);
+	// pulso_e.set_deslocamento_z(animation[17][anim_pos].t_y);
+	// pulso_e.set_deslocamento_z(animation[17][anim_pos].t_z);
+	// pulso_e.set_rotacao_x(animation[17][anim_pos].r_x);
+	// pulso_e.set_rotacao_y(animation[17][anim_pos].r_y);
+	// pulso_e.set_rotacao_z(animation[17][anim_pos].r_z);
+    //
+	// junta_pescoco.set_deslocamento_x(animation[18][anim_pos].t_x);
+	// junta_pescoco.set_deslocamento_z(animation[18][anim_pos].t_y);
+	// junta_pescoco.set_deslocamento_z(animation[18][anim_pos].t_z);
+	// junta_pescoco.set_rotacao_x(animation[18][anim_pos].r_x);
+	// junta_pescoco.set_rotacao_y(animation[18][anim_pos].r_y);
+	// junta_pescoco.set_rotacao_z(animation[18][anim_pos].r_z);
+
+
+	cintura.set_deslocamento_x(cintura.get_deslocamento_x() + animation[0][anim_pos].t_x);
+	cintura.set_deslocamento_z(cintura.get_deslocamento_y() + animation[0][anim_pos].t_y);
+	cintura.set_deslocamento_z(cintura.get_deslocamento_z() + animation[0][anim_pos].t_z);
+	cintura.set_rotacao_x(cintura.get_rotacao_x() + animation[0][anim_pos].r_x);
+	cintura.set_rotacao_y(cintura.get_rotacao_y() + animation[0][anim_pos].r_y);
+	cintura.set_rotacao_z(cintura.get_rotacao_z() + animation[0][anim_pos].r_z);
+
+	virilha_d.set_deslocamento_x(virilha_d.get_deslocamento_x() + animation[1][anim_pos].t_x);
+	virilha_d.set_deslocamento_z(virilha_d.get_deslocamento_y() + animation[1][anim_pos].t_y);
+	virilha_d.set_deslocamento_z(virilha_d.get_deslocamento_z() + animation[1][anim_pos].t_z);
+	virilha_d.set_rotacao_x(virilha_d.get_rotacao_x() + animation[1][anim_pos].r_x);
+	virilha_d.set_rotacao_y(virilha_d.get_rotacao_y() + animation[1][anim_pos].r_y);
+	virilha_d.set_rotacao_z(virilha_d.get_rotacao_z() + animation[1][anim_pos].r_z);
+
+	virilha_e.set_deslocamento_x(virilha_e.get_deslocamento_x() + animation[2][anim_pos].t_x);
+	virilha_e.set_deslocamento_z(virilha_e.get_deslocamento_y() + animation[2][anim_pos].t_y);
+	virilha_e.set_deslocamento_z(virilha_e.get_deslocamento_z() + animation[2][anim_pos].t_z);
+	virilha_e.set_rotacao_x(virilha_e.get_rotacao_x() + animation[2][anim_pos].r_x);
+	virilha_e.set_rotacao_y(virilha_e.get_rotacao_y() + animation[2][anim_pos].r_y);
+	virilha_e.set_rotacao_z(virilha_e.get_rotacao_z() + animation[2][anim_pos].r_z);
+
+	joelho_d.set_deslocamento_x(joelho_d.get_deslocamento_x() + animation[3][anim_pos].t_x);
+	joelho_d.set_deslocamento_z(joelho_d.get_deslocamento_y() + animation[3][anim_pos].t_y);
+	joelho_d.set_deslocamento_z(joelho_d.get_deslocamento_z() + animation[3][anim_pos].t_z);
+	joelho_d.set_rotacao_x(joelho_d.get_rotacao_x() + animation[3][anim_pos].r_x);
+	joelho_d.set_rotacao_y(joelho_d.get_rotacao_y() + animation[3][anim_pos].r_y);
+	joelho_d.set_rotacao_z(joelho_d.get_rotacao_z() + animation[3][anim_pos].r_z);
+
+	joelho_e.set_deslocamento_x(joelho_e.get_deslocamento_x() + animation[4][anim_pos].t_x);
+	joelho_e.set_deslocamento_z(joelho_e.get_deslocamento_y() + animation[4][anim_pos].t_y);
+	joelho_e.set_deslocamento_z(joelho_e.get_deslocamento_z() + animation[4][anim_pos].t_z);
+	joelho_e.set_rotacao_x(joelho_e.get_rotacao_x() + animation[4][anim_pos].r_x);
+	joelho_e.set_rotacao_y(joelho_e.get_rotacao_y() + animation[4][anim_pos].r_y);
+	joelho_e.set_rotacao_z(joelho_e.get_rotacao_z() + animation[4][anim_pos].r_z);
+
+	tornozelo_d.set_deslocamento_x(tornozelo_d.get_deslocamento_x() + animation[5][anim_pos].t_x);
+	tornozelo_d.set_deslocamento_z(tornozelo_d.get_deslocamento_y() + animation[5][anim_pos].t_y);
+	tornozelo_d.set_deslocamento_z(tornozelo_d.get_deslocamento_z() + animation[5][anim_pos].t_z);
+	tornozelo_d.set_rotacao_x(tornozelo_d.get_rotacao_x() + animation[5][anim_pos].r_x);
+	tornozelo_d.set_rotacao_y(tornozelo_d.get_rotacao_y() + animation[5][anim_pos].r_y);
+	tornozelo_d.set_rotacao_z(tornozelo_d.get_rotacao_z() + animation[5][anim_pos].r_z);
+
+	tornozelo_e.set_deslocamento_x(tornozelo_e.get_deslocamento_x() + animation[6][anim_pos].t_x);
+	tornozelo_e.set_deslocamento_z(tornozelo_e.get_deslocamento_y() + animation[6][anim_pos].t_y);
+	tornozelo_e.set_deslocamento_z(tornozelo_e.get_deslocamento_z() + animation[6][anim_pos].t_z);
+	tornozelo_e.set_rotacao_x(tornozelo_e.get_rotacao_x() + animation[6][anim_pos].r_x);
+	tornozelo_e.set_rotacao_y(tornozelo_e.get_rotacao_y() + animation[6][anim_pos].r_y);
+	tornozelo_e.set_rotacao_z(tornozelo_e.get_rotacao_z() + animation[6][anim_pos].r_z);
+
+	ponta_pe_d.set_deslocamento_x(ponta_pe_d.get_deslocamento_x() + animation[7][anim_pos].t_x);
+	ponta_pe_d.set_deslocamento_z(ponta_pe_d.get_deslocamento_y() + animation[7][anim_pos].t_y);
+	ponta_pe_d.set_deslocamento_z(ponta_pe_d.get_deslocamento_z() + animation[7][anim_pos].t_z);
+	ponta_pe_d.set_rotacao_x(ponta_pe_d.get_rotacao_x() + animation[7][anim_pos].r_x);
+	ponta_pe_d.set_rotacao_y(ponta_pe_d.get_rotacao_y() + animation[7][anim_pos].r_y);
+	ponta_pe_d.set_rotacao_z(ponta_pe_d.get_rotacao_z() + animation[7][anim_pos].r_z);
+
+	ponta_pe_e.set_deslocamento_x(ponta_pe_e.get_deslocamento_x() + animation[8][anim_pos].t_x);
+	ponta_pe_e.set_deslocamento_z(ponta_pe_e.get_deslocamento_y() + animation[8][anim_pos].t_y);
+	ponta_pe_e.set_deslocamento_z(ponta_pe_e.get_deslocamento_z() + animation[8][anim_pos].t_z);
+	ponta_pe_e.set_rotacao_x(ponta_pe_e.get_rotacao_x() + animation[8][anim_pos].r_x);
+	ponta_pe_e.set_rotacao_y(ponta_pe_e.get_rotacao_y() + animation[8][anim_pos].r_y);
+	ponta_pe_e.set_rotacao_z(ponta_pe_e.get_rotacao_z() + animation[8][anim_pos].r_z);
+
+	espinha_d_1.set_deslocamento_x(espinha_d_1.get_deslocamento_x() + animation[9][anim_pos].t_x);
+	espinha_d_1.set_deslocamento_z(espinha_d_1.get_deslocamento_y() + animation[9][anim_pos].t_y);
+	espinha_d_1.set_deslocamento_z(espinha_d_1.get_deslocamento_z() + animation[9][anim_pos].t_z);
+	espinha_d_1.set_rotacao_x(espinha_d_1.get_rotacao_x() + animation[9][anim_pos].r_x);
+	espinha_d_1.set_rotacao_y(espinha_d_1.get_rotacao_y() + animation[9][anim_pos].r_y);
+	espinha_d_1.set_rotacao_z(espinha_d_1.get_rotacao_z() + animation[9][anim_pos].r_z);
+
+	espinha_d_2.set_deslocamento_x(espinha_d_2.get_deslocamento_x() + animation[10][anim_pos].t_x);
+	espinha_d_2.set_deslocamento_z(espinha_d_2.get_deslocamento_y() + animation[10][anim_pos].t_y);
+	espinha_d_2.set_deslocamento_z(espinha_d_2.get_deslocamento_z() + animation[10][anim_pos].t_z);
+	espinha_d_2.set_rotacao_x(espinha_d_2.get_rotacao_x() + animation[10][anim_pos].r_x);
+	espinha_d_2.set_rotacao_y(espinha_d_2.get_rotacao_y() + animation[10][anim_pos].r_y);
+	espinha_d_2.set_rotacao_z(espinha_d_2.get_rotacao_z() + animation[10][anim_pos].r_z);
+
+	espinha_d_3.set_deslocamento_x(espinha_d_3.get_deslocamento_x() + animation[11][anim_pos].t_x);
+	espinha_d_3.set_deslocamento_z(espinha_d_3.get_deslocamento_y() + animation[11][anim_pos].t_y);
+	espinha_d_3.set_deslocamento_z(espinha_d_3.get_deslocamento_z() + animation[11][anim_pos].t_z);
+	espinha_d_3.set_rotacao_x(espinha_d_3.get_rotacao_x() + animation[11][anim_pos].r_x);
+	espinha_d_3.set_rotacao_y(espinha_d_3.get_rotacao_y() + animation[11][anim_pos].r_y);
+	espinha_d_3.set_rotacao_z(espinha_d_3.get_rotacao_z() + animation[11][anim_pos].r_z);
+
+	ombro_d.set_deslocamento_x(ombro_d.get_deslocamento_x() + animation[12][anim_pos].t_x);
+	ombro_d.set_deslocamento_z(ombro_d.get_deslocamento_y() + animation[12][anim_pos].t_y);
+	ombro_d.set_deslocamento_z(ombro_d.get_deslocamento_z() + animation[12][anim_pos].t_z);
+	ombro_d.set_rotacao_x(ombro_d.get_rotacao_x() + animation[12][anim_pos].r_x);
+	ombro_d.set_rotacao_y(ombro_d.get_rotacao_y() + animation[12][anim_pos].r_y);
+	ombro_d.set_rotacao_z(ombro_d.get_rotacao_z() + animation[12][anim_pos].r_z);
+
+	ombro_e.set_deslocamento_x(ombro_e.get_deslocamento_x() + animation[13][anim_pos].t_x);
+	ombro_e.set_deslocamento_z(ombro_e.get_deslocamento_y() + animation[13][anim_pos].t_y);
+	ombro_e.set_deslocamento_z(ombro_e.get_deslocamento_z() + animation[13][anim_pos].t_z);
+	ombro_e.set_rotacao_x(ombro_e.get_rotacao_x() + animation[13][anim_pos].r_x);
+	ombro_e.set_rotacao_y(ombro_e.get_rotacao_y() + animation[13][anim_pos].r_y);
+	ombro_e.set_rotacao_z(ombro_e.get_rotacao_z() + animation[13][anim_pos].r_z);
+
+	cotovelo_d.set_deslocamento_x(cotovelo_d.get_deslocamento_x() + animation[14][anim_pos].t_x);
+	cotovelo_d.set_deslocamento_z(cotovelo_d.get_deslocamento_y() + animation[14][anim_pos].t_y);
+	cotovelo_d.set_deslocamento_z(cotovelo_d.get_deslocamento_z() + animation[14][anim_pos].t_z);
+	cotovelo_d.set_rotacao_x(cotovelo_d.get_rotacao_x() + animation[14][anim_pos].r_x);
+	cotovelo_d.set_rotacao_y(cotovelo_d.get_rotacao_y() + animation[14][anim_pos].r_y);
+	cotovelo_d.set_rotacao_z(cotovelo_d.get_rotacao_z() + animation[14][anim_pos].r_z);
+
+	cotovelo_e.set_deslocamento_x(cotovelo_e.get_deslocamento_x() + animation[15][anim_pos].t_x);
+	cotovelo_e.set_deslocamento_z(cotovelo_e.get_deslocamento_y() + animation[15][anim_pos].t_y);
+	cotovelo_e.set_deslocamento_z(cotovelo_e.get_deslocamento_z() + animation[15][anim_pos].t_z);
+	cotovelo_e.set_rotacao_x(cotovelo_e.get_rotacao_x() + animation[15][anim_pos].r_x);
+	cotovelo_e.set_rotacao_y(cotovelo_e.get_rotacao_y() + animation[15][anim_pos].r_y);
+	cotovelo_e.set_rotacao_z(cotovelo_e.get_rotacao_z() + animation[15][anim_pos].r_z);
+
+	pulso_d.set_deslocamento_x(pulso_d.get_deslocamento_x() + animation[16][anim_pos].t_x);
+	pulso_d.set_deslocamento_z(pulso_d.get_deslocamento_y() + animation[16][anim_pos].t_y);
+	pulso_d.set_deslocamento_z(pulso_d.get_deslocamento_z() + animation[16][anim_pos].t_z);
+	pulso_d.set_rotacao_x(pulso_d.get_rotacao_x() + animation[16][anim_pos].r_x);
+	pulso_d.set_rotacao_y(pulso_d.get_rotacao_y() + animation[16][anim_pos].r_y);
+	pulso_d.set_rotacao_z(pulso_d.get_rotacao_z() + animation[16][anim_pos].r_z);
+
+	pulso_e.set_deslocamento_x(pulso_e.get_deslocamento_x() + animation[17][anim_pos].t_x);
+	pulso_e.set_deslocamento_z(pulso_e.get_deslocamento_y() + animation[17][anim_pos].t_y);
+	pulso_e.set_deslocamento_z(pulso_e.get_deslocamento_z() + animation[17][anim_pos].t_z);
+	pulso_e.set_rotacao_x(pulso_e.get_rotacao_x() + animation[17][anim_pos].r_x);
+	pulso_e.set_rotacao_y(pulso_e.get_rotacao_y() + animation[17][anim_pos].r_y);
+	pulso_e.set_rotacao_z(pulso_e.get_rotacao_z() + animation[17][anim_pos].r_z);
+
+	junta_pescoco.set_deslocamento_x(junta_pescoco.get_deslocamento_x() + animation[18][anim_pos].t_x);
+	junta_pescoco.set_deslocamento_z(junta_pescoco.get_deslocamento_y() + animation[18][anim_pos].t_y);
+	junta_pescoco.set_deslocamento_z(junta_pescoco.get_deslocamento_z() + animation[18][anim_pos].t_z);
+	junta_pescoco.set_rotacao_x(junta_pescoco.get_rotacao_x() + animation[18][anim_pos].r_x);
+	junta_pescoco.set_rotacao_y(junta_pescoco.get_rotacao_y() + animation[18][anim_pos].r_y);
+	junta_pescoco.set_rotacao_z(junta_pescoco.get_rotacao_z() + animation[18][anim_pos].r_z);
 }
 
 void desenha_junta(Modelo m){
@@ -473,9 +773,17 @@ void DesenhaEixos(void)
 // Função callback chamada para fazer o desenho
 void Desenha(void){
 
-	//anim_pos++;
-
 	usleep(20000);
+
+	if(play){
+		if(anim_pos > (max_frames - 1)){
+			exit(0);
+		}
+
+		animate();
+
+		anim_pos++;
+	}
 
 	// Especifica sistema de coordenadas do modelo
 	glMatrixMode(GL_MODELVIEW);
@@ -606,8 +914,6 @@ void keyBoardSpecialfunc(int key, int x, int y){
 	}else
 	if(key == 116){
 		ALT = 1;
-	}else{
-		cout << key << endl;
 	}
 }
 
@@ -628,7 +934,7 @@ void keyBoardfunc(unsigned char key, int x, int y){
 	usleep(100);
 
 	if(SHIFT){
-		cout << "SHIFT + " << int(key) << endl;
+		//cout << "SHIFT + " << int(key) << endl;
 		if(key == 33){
 			cintura.set_rotacao_x(cintura.get_rotacao_x() + 3);
 		}else
@@ -742,10 +1048,17 @@ void keyBoardfunc(unsigned char key, int x, int y){
 		}else
 		if(key == 77){
 			junta_pescoco.set_rotacao_x(junta_pescoco.get_rotacao_x() - 3);
+		}else
+		if(key == 199){
+			cintura.set_deslocamento_x(cintura.get_deslocamento_x() + 3);
+		}else
+		if(key == 94){
+			cintura.set_deslocamento_x(cintura.get_deslocamento_x() - 3);
 		}
+
 	}else
 	if(CTRL){
-		cout << "CTRL + " << int(key) << endl;
+		//cout << "CTRL + " << int(key) << endl;
 		if(key == 49){
 		  cintura.set_rotacao_y(cintura.get_rotacao_y() + 3);
 		}else
@@ -859,10 +1172,16 @@ void keyBoardfunc(unsigned char key, int x, int y){
 		}else
 		if(key == 13){
 		  junta_pescoco.set_rotacao_y(junta_pescoco.get_rotacao_y() - 3);
+		}else
+		if(key == 59){
+			cintura.set_deslocamento_y(cintura.get_deslocamento_y() + 3);
+		}else
+		if(key == 39){
+			cintura.set_deslocamento_y(cintura.get_deslocamento_y() - 3);
 		}
 	}else
 	if(ALT){
-		cout << "ALT + " << int(key) << endl;
+		//cout << "ALT + " << int(key) << endl;
 		if(key == 49){
 		  cintura.set_rotacao_z(cintura.get_rotacao_z() + 3);
 		}else
@@ -976,9 +1295,330 @@ void keyBoardfunc(unsigned char key, int x, int y){
 		}else
 		if(key == 109){
 		  junta_pescoco.set_rotacao_z(junta_pescoco.get_rotacao_z() - 3);
+		}else
+		if(key == 231){
+			cintura.set_deslocamento_z(cintura.get_deslocamento_z() + 3);
+		}else
+		if(key == 126){
+			cintura.set_deslocamento_z(cintura.get_deslocamento_z() - 3);
 		}
 	}else{
+		//cout << "NORMAL " << int(key) << endl;
 
+		if(key == 119){
+
+			virilha_d.set_rotacao_z(-90.0f);
+			virilha_e.set_rotacao_z(-90.0f);
+
+			tornozelo_d.set_rotacao_y(-90.0f);
+			tornozelo_e.set_rotacao_y(-90.0f);
+
+			ombro_d.set_rotacao_z(90.0f);
+			ombro_e.set_rotacao_z(-90.0f);
+
+
+			matriz_s.open("saida.txt", ifstream::out);
+		}else
+		if(key == 112){
+			play = 1;
+		}else
+		if(key == 108){
+			load_animation();
+		}else
+		if(key == 27){
+			matriz_s.close();
+			exit(0);
+		}else
+		if(key == 13){
+
+			cintura_s.t_x = cintura.get_deslocamento_x() - cintura_s.t_x;
+			cintura_s.t_y = cintura.get_deslocamento_y() - cintura_s.t_y;
+			cintura_s.t_z = cintura.get_deslocamento_z() - cintura_s.t_z;
+			cintura_s.r_x = cintura.get_rotacao_x() - cintura_s.r_x;
+			cintura_s.r_y = cintura.get_rotacao_y() - cintura_s.r_y;
+			cintura_s.r_z = cintura.get_rotacao_z() - cintura_s.r_z;
+
+			virilha_d_s.t_x = virilha_d.get_deslocamento_x() - virilha_d_s.t_x;
+			virilha_d_s.t_y = virilha_d.get_deslocamento_y() - virilha_d_s.t_y;
+			virilha_d_s.t_z = virilha_d.get_deslocamento_z() - virilha_d_s.t_z;
+			virilha_d_s.r_x = virilha_d.get_rotacao_x() - virilha_d_s.r_x;
+			virilha_d_s.r_y = virilha_d.get_rotacao_y() - virilha_d_s.r_y;
+			virilha_d_s.r_z = virilha_d.get_rotacao_z() - virilha_d_s.r_z;
+
+			virilha_e_s.t_x = virilha_e.get_deslocamento_x() - virilha_e_s.t_x;
+			virilha_e_s.t_y = virilha_e.get_deslocamento_y() - virilha_e_s.t_y;
+			virilha_e_s.t_z = virilha_e.get_deslocamento_z() - virilha_e_s.t_z;
+			virilha_e_s.r_x = virilha_e.get_rotacao_x() - virilha_e_s.r_x;
+			virilha_e_s.r_y = virilha_e.get_rotacao_y() - virilha_e_s.r_y;
+			virilha_e_s.r_z = virilha_e.get_rotacao_z() - virilha_e_s.r_z;
+
+			joelho_d_s.t_x = joelho_d.get_deslocamento_x() - joelho_d_s.t_x;
+			joelho_d_s.t_y = joelho_d.get_deslocamento_y() - joelho_d_s.t_y;
+			joelho_d_s.t_z = joelho_d.get_deslocamento_z() - joelho_d_s.t_z;
+			joelho_d_s.r_x = joelho_d.get_rotacao_x() - joelho_d_s.r_x;
+			joelho_d_s.r_y = joelho_d.get_rotacao_y() - joelho_d_s.r_y;
+			joelho_d_s.r_z = joelho_d.get_rotacao_z() - joelho_d_s.r_z;
+
+			joelho_e_s.t_x = joelho_e.get_deslocamento_x() - joelho_e_s.t_x;
+			joelho_e_s.t_y = joelho_e.get_deslocamento_y() - joelho_e_s.t_y;
+			joelho_e_s.t_z = joelho_e.get_deslocamento_z() - joelho_e_s.t_z;
+			joelho_e_s.r_x = joelho_e.get_rotacao_x() - joelho_e_s.r_x;
+			joelho_e_s.r_y = joelho_e.get_rotacao_y() - joelho_e_s.r_y;
+			joelho_e_s.r_z = joelho_e.get_rotacao_z() - joelho_e_s.r_z;
+
+			tornozelo_d_s.t_x = tornozelo_d.get_deslocamento_x() - tornozelo_d_s.t_x;
+			tornozelo_d_s.t_y = tornozelo_d.get_deslocamento_y() - tornozelo_d_s.t_y;
+			tornozelo_d_s.t_z = tornozelo_d.get_deslocamento_z() - tornozelo_d_s.t_z;
+			tornozelo_d_s.r_x = tornozelo_d.get_rotacao_x() - tornozelo_d_s.r_x;
+			tornozelo_d_s.r_y = tornozelo_d.get_rotacao_y() - tornozelo_d_s.r_y;
+			tornozelo_d_s.r_z = tornozelo_d.get_rotacao_z() - tornozelo_d_s.r_z;
+
+			tornozelo_e_s.t_x = tornozelo_e.get_deslocamento_x() - tornozelo_e_s.t_x;
+			tornozelo_e_s.t_y = tornozelo_e.get_deslocamento_y() - tornozelo_e_s.t_y;
+			tornozelo_e_s.t_z = tornozelo_e.get_deslocamento_z() - tornozelo_e_s.t_z;
+			tornozelo_e_s.r_x = tornozelo_e.get_rotacao_x() - tornozelo_e_s.r_x;
+			tornozelo_e_s.r_y = tornozelo_e.get_rotacao_y() - tornozelo_e_s.r_y;
+			tornozelo_e_s.r_z = tornozelo_e.get_rotacao_z() - tornozelo_e_s.r_z;
+
+			ponta_pe_d_s.t_x = ponta_pe_d.get_deslocamento_x() - ponta_pe_d_s.t_x;
+			ponta_pe_d_s.t_y = ponta_pe_d.get_deslocamento_y() - ponta_pe_d_s.t_y;
+			ponta_pe_d_s.t_z = ponta_pe_d.get_deslocamento_z() - ponta_pe_d_s.t_z;
+			ponta_pe_d_s.r_x = ponta_pe_d.get_rotacao_x() - ponta_pe_d_s.r_x;
+			ponta_pe_d_s.r_y = ponta_pe_d.get_rotacao_y() - ponta_pe_d_s.r_y;
+			ponta_pe_d_s.r_z = ponta_pe_d.get_rotacao_z() - ponta_pe_d_s.r_z;
+
+			ponta_pe_e_s.t_x = ponta_pe_e.get_deslocamento_x() - ponta_pe_e_s.t_x;
+			ponta_pe_e_s.t_y = ponta_pe_e.get_deslocamento_y() - ponta_pe_e_s.t_y;
+			ponta_pe_e_s.t_z = ponta_pe_e.get_deslocamento_z() - ponta_pe_e_s.t_z;
+			ponta_pe_e_s.r_x = ponta_pe_e.get_rotacao_x() - ponta_pe_e_s.r_x;
+			ponta_pe_e_s.r_y = ponta_pe_e.get_rotacao_y() - ponta_pe_e_s.r_y;
+			ponta_pe_e_s.r_z = ponta_pe_e.get_rotacao_z() - ponta_pe_e_s.r_z;
+
+			espinha_d_1_s.t_x = espinha_d_1.get_deslocamento_x() - espinha_d_1_s.t_x;
+			espinha_d_1_s.t_y = espinha_d_1.get_deslocamento_y() - espinha_d_1_s.t_y;
+			espinha_d_1_s.t_z = espinha_d_1.get_deslocamento_z() - espinha_d_1_s.t_z;
+			espinha_d_1_s.r_x = espinha_d_1.get_rotacao_x() - espinha_d_1_s.r_x;
+			espinha_d_1_s.r_y = espinha_d_1.get_rotacao_y() - espinha_d_1_s.r_y;
+			espinha_d_1_s.r_z = espinha_d_1.get_rotacao_z() - espinha_d_1_s.r_z;
+
+			espinha_d_2_s.t_x = espinha_d_2.get_deslocamento_x() - espinha_d_2_s.t_x;
+			espinha_d_2_s.t_y = espinha_d_2.get_deslocamento_y() - espinha_d_2_s.t_y;
+			espinha_d_2_s.t_z = espinha_d_2.get_deslocamento_z() - espinha_d_2_s.t_z;
+			espinha_d_2_s.r_x = espinha_d_2.get_rotacao_x() - espinha_d_2_s.r_x;
+			espinha_d_2_s.r_y = espinha_d_2.get_rotacao_y() - espinha_d_2_s.r_y;
+			espinha_d_2_s.r_z = espinha_d_2.get_rotacao_z() - espinha_d_2_s.r_z;
+
+			espinha_d_3_s.t_x = espinha_d_3.get_deslocamento_x() - espinha_d_3_s.t_x;
+			espinha_d_3_s.t_y = espinha_d_3.get_deslocamento_y() - espinha_d_3_s.t_y;
+			espinha_d_3_s.t_z = espinha_d_3.get_deslocamento_z() - espinha_d_3_s.t_z;
+			espinha_d_3_s.r_x = espinha_d_3.get_rotacao_x() - espinha_d_3_s.r_x;
+			espinha_d_3_s.r_y = espinha_d_3.get_rotacao_y() - espinha_d_3_s.r_y;
+			espinha_d_3_s.r_z = espinha_d_3.get_rotacao_z() - espinha_d_3_s.r_z;
+
+			ombro_d_s.t_x = ombro_d.get_deslocamento_x() - ombro_d_s.t_x;
+			ombro_d_s.t_y = ombro_d.get_deslocamento_y() - ombro_d_s.t_y;
+			ombro_d_s.t_z = ombro_d.get_deslocamento_z() - ombro_d_s.t_z;
+			ombro_d_s.r_x = ombro_d.get_rotacao_x() - ombro_d_s.r_x;
+			ombro_d_s.r_y = ombro_d.get_rotacao_y() - ombro_d_s.r_y;
+			ombro_d_s.r_z = ombro_d.get_rotacao_z() - ombro_d_s.r_z;
+
+			ombro_e_s.t_x = ombro_e.get_deslocamento_x() - ombro_e_s.t_x;
+			ombro_e_s.t_y = ombro_e.get_deslocamento_y() - ombro_e_s.t_y;
+			ombro_e_s.t_z = ombro_e.get_deslocamento_z() - ombro_e_s.t_z;
+			ombro_e_s.r_x = ombro_e.get_rotacao_x() - ombro_e_s.r_x;
+			ombro_e_s.r_y = ombro_e.get_rotacao_y() - ombro_e_s.r_y;
+			ombro_e_s.r_z = ombro_e.get_rotacao_z() - ombro_e_s.r_z;
+
+			cotovelo_d_s.t_x = cotovelo_d.get_deslocamento_x() - cotovelo_d_s.t_x;
+			cotovelo_d_s.t_y = cotovelo_d.get_deslocamento_y() - cotovelo_d_s.t_y;
+			cotovelo_d_s.t_z = cotovelo_d.get_deslocamento_z() - cotovelo_d_s.t_z;
+			cotovelo_d_s.r_x = cotovelo_d.get_rotacao_x() - cotovelo_d_s.r_x;
+			cotovelo_d_s.r_y = cotovelo_d.get_rotacao_y() - cotovelo_d_s.r_y;
+			cotovelo_d_s.r_z = cotovelo_d.get_rotacao_z() - cotovelo_d_s.r_z;
+
+			cotovelo_e_s.t_x = cotovelo_e.get_deslocamento_x() - cotovelo_e_s.t_x;
+			cotovelo_e_s.t_y = cotovelo_e.get_deslocamento_y() - cotovelo_e_s.t_y;
+			cotovelo_e_s.t_z = cotovelo_e.get_deslocamento_z() - cotovelo_e_s.t_z;
+			cotovelo_e_s.r_x = cotovelo_e.get_rotacao_x() - cotovelo_e_s.r_x;
+			cotovelo_e_s.r_y = cotovelo_e.get_rotacao_y() - cotovelo_e_s.r_y;
+			cotovelo_e_s.r_z = cotovelo_e.get_rotacao_z() - cotovelo_e_s.r_z;
+
+			pulso_d_s.t_x = pulso_d.get_deslocamento_x() - pulso_d_s.t_x;
+			pulso_d_s.t_y = pulso_d.get_deslocamento_y() - pulso_d_s.t_y;
+			pulso_d_s.t_z = pulso_d.get_deslocamento_z() - pulso_d_s.t_z;
+			pulso_d_s.r_x = pulso_d.get_rotacao_x() - pulso_d_s.r_x;
+			pulso_d_s.r_y = pulso_d.get_rotacao_y() - pulso_d_s.r_y;
+			pulso_d_s.r_z = pulso_d.get_rotacao_z() - pulso_d_s.r_z;
+
+			pulso_e_s.t_x = pulso_e.get_deslocamento_x() - pulso_e_s.t_x;
+			pulso_e_s.t_y = pulso_e.get_deslocamento_y() - pulso_e_s.t_y;
+			pulso_e_s.t_z = pulso_e.get_deslocamento_z() - pulso_e_s.t_z;
+			pulso_e_s.r_x = pulso_e.get_rotacao_x() - pulso_e_s.r_x;
+			pulso_e_s.r_y = pulso_e.get_rotacao_y() - pulso_e_s.r_y;
+			pulso_e_s.r_z = pulso_e.get_rotacao_z() - pulso_e_s.r_z;
+
+			junta_pescoco_s.t_x = junta_pescoco.get_deslocamento_x() - junta_pescoco_s.t_x;
+			junta_pescoco_s.t_y = junta_pescoco.get_deslocamento_y() - junta_pescoco_s.t_y;
+			junta_pescoco_s.t_z = junta_pescoco.get_deslocamento_z() - junta_pescoco_s.t_z;
+			junta_pescoco_s.r_x = junta_pescoco.get_rotacao_x() - junta_pescoco_s.r_x;
+			junta_pescoco_s.r_y = junta_pescoco.get_rotacao_y() - junta_pescoco_s.r_y;
+			junta_pescoco_s.r_z = junta_pescoco.get_rotacao_z() - junta_pescoco_s.r_z;
+
+
+			matriz_s << cintura_s.t_x << " " << cintura_s.t_y << " " << cintura_s.t_z << " " << cintura_s.r_x << " " << cintura_s.r_y << " " << cintura_s.r_z << " ";
+			matriz_s << virilha_d_s.t_x << " " << virilha_d_s.t_y << " " << virilha_d_s.t_z << " " << virilha_d_s.r_x << " " << virilha_d_s.r_y << " " << virilha_d_s.r_z << " ";
+			matriz_s << virilha_e_s.t_x << " " << virilha_e_s.t_y << " " << virilha_e_s.t_z << " " << virilha_e_s.r_x << " " << virilha_e_s.r_y << " " << virilha_e_s.r_z << " ";
+			matriz_s << joelho_d_s.t_x << " " << joelho_d_s.t_y << " " << joelho_d_s.t_z << " " << joelho_d_s.r_x << " " << joelho_d_s.r_y << " " << joelho_d_s.r_z << " ";
+			matriz_s << joelho_e_s.t_x << " " << joelho_e_s.t_y << " " << joelho_e_s.t_z << " " << joelho_e_s.r_x << " " << joelho_e_s.r_y << " " << joelho_e_s.r_z << " ";
+			matriz_s << tornozelo_d_s.t_x << " " << tornozelo_d_s.t_y << " " << tornozelo_d_s.t_z << " " << tornozelo_d_s.r_x << " " << tornozelo_d_s.r_y << " " << tornozelo_d_s.r_z << " ";
+			matriz_s << tornozelo_e_s.t_x << " " << tornozelo_e_s.t_y << " " << tornozelo_e_s.t_z << " " << tornozelo_e_s.r_x << " " << tornozelo_e_s.r_y << " " << tornozelo_e_s.r_z << " ";
+			matriz_s << ponta_pe_d_s.t_x << " " << ponta_pe_d_s.t_y << " " << ponta_pe_d_s.t_z << " " << ponta_pe_d_s.r_x << " " << ponta_pe_d_s.r_y << " " << ponta_pe_d_s.r_z << " ";
+			matriz_s << ponta_pe_e_s.t_x << " " << ponta_pe_e_s.t_y << " " << ponta_pe_e_s.t_z << " " << ponta_pe_e_s.r_x << " " << ponta_pe_e_s.r_y << " " << ponta_pe_e_s.r_z << " ";
+			matriz_s << espinha_d_1_s.t_x << " " << espinha_d_1_s.t_y << " " << espinha_d_1_s.t_z << " " << espinha_d_1_s.r_x << " " << espinha_d_1_s.r_y << " " << espinha_d_1_s.r_z << " ";
+			matriz_s << espinha_d_2_s.t_x << " " << espinha_d_2_s.t_y << " " << espinha_d_2_s.t_z << " " << espinha_d_2_s.r_x << " " << espinha_d_2_s.r_y << " " << espinha_d_2_s.r_z << " ";
+			matriz_s << espinha_d_3_s.t_x << " " << espinha_d_3_s.t_y << " " << espinha_d_3_s.t_z << " " << espinha_d_3_s.r_x << " " << espinha_d_3_s.r_y << " " << espinha_d_3_s.r_z << " ";
+			matriz_s << ombro_d_s.t_x << " " << ombro_d_s.t_y << " " << ombro_d_s.t_z << " " << ombro_d_s.r_x << " " << ombro_d_s.r_y << " " << ombro_d_s.r_z << " ";
+			matriz_s << ombro_e_s.t_x << " " << ombro_e_s.t_y << " " << ombro_e_s.t_z << " " << ombro_e_s.r_x << " " << ombro_e_s.r_y << " " << ombro_e_s.r_z << " ";
+			matriz_s << cotovelo_d_s.t_x << " " << cotovelo_d_s.t_y << " " << cotovelo_d_s.t_z << " " << cotovelo_d_s.r_x << " " << cotovelo_d_s.r_y << " " << cotovelo_d_s.r_z << " ";
+			matriz_s << cotovelo_e_s.t_x << " " << cotovelo_e_s.t_y << " " << cotovelo_e_s.t_z << " " << cotovelo_e_s.r_x << " " << cotovelo_e_s.r_y << " " << cotovelo_e_s.r_z << " ";
+			matriz_s << pulso_d_s.t_x << " " << pulso_d_s.t_y << " " << pulso_d_s.t_z << " " << pulso_d_s.r_x << " " << pulso_d_s.r_y << " " << pulso_d_s.r_z << " ";
+			matriz_s << pulso_e_s.t_x << " " << pulso_e_s.t_y << " " << pulso_e_s.t_z << " " << pulso_e_s.r_x << " " << pulso_e_s.r_y << " " << pulso_e_s.r_z << " ";
+			matriz_s << junta_pescoco_s.t_x << " " << junta_pescoco_s.t_y << " " << junta_pescoco_s.t_z << " " << junta_pescoco_s.r_x << " " << junta_pescoco_s.r_y << " " << junta_pescoco_s.r_z << endl;
+
+
+			cintura_s.t_x = cintura.get_deslocamento_x();
+			cintura_s.t_y = cintura.get_deslocamento_y();
+			cintura_s.t_z = cintura.get_deslocamento_z();
+			cintura_s.r_x = cintura.get_rotacao_x();
+			cintura_s.r_y = cintura.get_rotacao_y();
+			cintura_s.r_z = cintura.get_rotacao_z();
+
+			virilha_d_s.t_x = virilha_d.get_deslocamento_x();
+			virilha_d_s.t_y = virilha_d.get_deslocamento_y();
+			virilha_d_s.t_z = virilha_d.get_deslocamento_z();
+			virilha_d_s.r_x = virilha_d.get_rotacao_x();
+			virilha_d_s.r_y = virilha_d.get_rotacao_y();
+			virilha_d_s.r_z = virilha_d.get_rotacao_z();
+
+			virilha_e_s.t_x = virilha_e.get_deslocamento_x();
+			virilha_e_s.t_y = virilha_e.get_deslocamento_y();
+			virilha_e_s.t_z = virilha_e.get_deslocamento_z();
+			virilha_e_s.r_x = virilha_e.get_rotacao_x();
+			virilha_e_s.r_y = virilha_e.get_rotacao_y();
+			virilha_e_s.r_z = virilha_e.get_rotacao_z();
+
+			joelho_d_s.t_x = joelho_d.get_deslocamento_x();
+			joelho_d_s.t_y = joelho_d.get_deslocamento_y();
+			joelho_d_s.t_z = joelho_d.get_deslocamento_z();
+			joelho_d_s.r_x = joelho_d.get_rotacao_x();
+			joelho_d_s.r_y = joelho_d.get_rotacao_y();
+			joelho_d_s.r_z = joelho_d.get_rotacao_z();
+
+			joelho_e_s.t_x = joelho_e.get_deslocamento_x();
+			joelho_e_s.t_y = joelho_e.get_deslocamento_y();
+			joelho_e_s.t_z = joelho_e.get_deslocamento_z();
+			joelho_e_s.r_x = joelho_e.get_rotacao_x();
+			joelho_e_s.r_y = joelho_e.get_rotacao_y();
+			joelho_e_s.r_z = joelho_e.get_rotacao_z();
+
+			tornozelo_d_s.t_x = tornozelo_d.get_deslocamento_x();
+			tornozelo_d_s.t_y = tornozelo_d.get_deslocamento_y();
+			tornozelo_d_s.t_z = tornozelo_d.get_deslocamento_z();
+			tornozelo_d_s.r_x = tornozelo_d.get_rotacao_x();
+			tornozelo_d_s.r_y = tornozelo_d.get_rotacao_y();
+			tornozelo_d_s.r_z = tornozelo_d.get_rotacao_z();
+
+			tornozelo_e_s.t_x = tornozelo_e.get_deslocamento_x();
+			tornozelo_e_s.t_y = tornozelo_e.get_deslocamento_y();
+			tornozelo_e_s.t_z = tornozelo_e.get_deslocamento_z();
+			tornozelo_e_s.r_x = tornozelo_e.get_rotacao_x();
+			tornozelo_e_s.r_y = tornozelo_e.get_rotacao_y();
+			tornozelo_e_s.r_z = tornozelo_e.get_rotacao_z();
+
+			ponta_pe_d_s.t_x = ponta_pe_d.get_deslocamento_x();
+			ponta_pe_d_s.t_y = ponta_pe_d.get_deslocamento_y();
+			ponta_pe_d_s.t_z = ponta_pe_d.get_deslocamento_z();
+			ponta_pe_d_s.r_x = ponta_pe_d.get_rotacao_x();
+			ponta_pe_d_s.r_y = ponta_pe_d.get_rotacao_y();
+			ponta_pe_d_s.r_z = ponta_pe_d.get_rotacao_z();
+
+			ponta_pe_e_s.t_x = ponta_pe_e.get_deslocamento_x();
+			ponta_pe_e_s.t_y = ponta_pe_e.get_deslocamento_y();
+			ponta_pe_e_s.t_z = ponta_pe_e.get_deslocamento_z();
+			ponta_pe_e_s.r_x = ponta_pe_e.get_rotacao_x();
+			ponta_pe_e_s.r_y = ponta_pe_e.get_rotacao_y();
+			ponta_pe_e_s.r_z = ponta_pe_e.get_rotacao_z();
+
+			espinha_d_1_s.t_x = espinha_d_1.get_deslocamento_x();
+			espinha_d_1_s.t_y = espinha_d_1.get_deslocamento_y();
+			espinha_d_1_s.t_z = espinha_d_1.get_deslocamento_z();
+			espinha_d_1_s.r_x = espinha_d_1.get_rotacao_x();
+			espinha_d_1_s.r_y = espinha_d_1.get_rotacao_y();
+			espinha_d_1_s.r_z = espinha_d_1.get_rotacao_z();
+
+			espinha_d_2_s.t_x = espinha_d_2.get_deslocamento_x();
+			espinha_d_2_s.t_y = espinha_d_2.get_deslocamento_y();
+			espinha_d_2_s.t_z = espinha_d_2.get_deslocamento_z();
+			espinha_d_2_s.r_x = espinha_d_2.get_rotacao_x();
+			espinha_d_2_s.r_y = espinha_d_2.get_rotacao_y();
+			espinha_d_2_s.r_z = espinha_d_2.get_rotacao_z();
+
+			espinha_d_3_s.t_x = espinha_d_3.get_deslocamento_x();
+			espinha_d_3_s.t_y = espinha_d_3.get_deslocamento_y();
+			espinha_d_3_s.t_z = espinha_d_3.get_deslocamento_z();
+			espinha_d_3_s.r_x = espinha_d_3.get_rotacao_x();
+			espinha_d_3_s.r_y = espinha_d_3.get_rotacao_y();
+			espinha_d_3_s.r_z = espinha_d_3.get_rotacao_z();
+
+			ombro_d_s.t_x = ombro_d.get_deslocamento_x();
+			ombro_d_s.t_y = ombro_d.get_deslocamento_y();
+			ombro_d_s.t_z = ombro_d.get_deslocamento_z();
+			ombro_d_s.r_x = ombro_d.get_rotacao_x();
+			ombro_d_s.r_y = ombro_d.get_rotacao_y();
+			ombro_d_s.r_z = ombro_d.get_rotacao_z();
+
+			ombro_e_s.t_x = ombro_e.get_deslocamento_x();
+			ombro_e_s.t_y = ombro_e.get_deslocamento_y();
+			ombro_e_s.t_z = ombro_e.get_deslocamento_z();
+			ombro_e_s.r_x = ombro_e.get_rotacao_x();
+			ombro_e_s.r_y = ombro_e.get_rotacao_y();
+			ombro_e_s.r_z = ombro_e.get_rotacao_z();
+
+			cotovelo_d_s.t_x = cotovelo_d.get_deslocamento_x();
+			cotovelo_d_s.t_y = cotovelo_d.get_deslocamento_y();
+			cotovelo_d_s.t_z = cotovelo_d.get_deslocamento_z();
+			cotovelo_d_s.r_x = cotovelo_d.get_rotacao_x();
+			cotovelo_d_s.r_y = cotovelo_d.get_rotacao_y();
+			cotovelo_d_s.r_z = cotovelo_d.get_rotacao_z();
+
+			cotovelo_e_s.t_x = cotovelo_e.get_deslocamento_x();
+			cotovelo_e_s.t_y = cotovelo_e.get_deslocamento_y();
+			cotovelo_e_s.t_z = cotovelo_e.get_deslocamento_z();
+			cotovelo_e_s.r_x = cotovelo_e.get_rotacao_x();
+			cotovelo_e_s.r_y = cotovelo_e.get_rotacao_y();
+			cotovelo_e_s.r_z = cotovelo_e.get_rotacao_z();
+
+			pulso_d_s.t_x = pulso_d.get_deslocamento_x();
+			pulso_d_s.t_y = pulso_d.get_deslocamento_y();
+			pulso_d_s.t_z = pulso_d.get_deslocamento_z();
+			pulso_d_s.r_x = pulso_d.get_rotacao_x();
+			pulso_d_s.r_y = pulso_d.get_rotacao_y();
+			pulso_d_s.r_z = pulso_d.get_rotacao_z();
+
+			pulso_e_s.t_x = pulso_e.get_deslocamento_x();
+			pulso_e_s.t_y = pulso_e.get_deslocamento_y();
+			pulso_e_s.t_z = pulso_e.get_deslocamento_z();
+			pulso_e_s.r_x = pulso_e.get_rotacao_x();
+			pulso_e_s.r_y = pulso_e.get_rotacao_y();
+			pulso_e_s.r_z = pulso_e.get_rotacao_z();
+
+			junta_pescoco_s.t_x = junta_pescoco.get_deslocamento_x();
+			junta_pescoco_s.t_y = junta_pescoco.get_deslocamento_y();
+			junta_pescoco_s.t_z = junta_pescoco.get_deslocamento_z();
+			junta_pescoco_s.r_x = junta_pescoco.get_rotacao_x();
+			junta_pescoco_s.r_y = junta_pescoco.get_rotacao_y();
+			junta_pescoco_s.r_z = junta_pescoco.get_rotacao_z();
+		}
 	}
 
 	glutPostRedisplay();
@@ -988,29 +1628,10 @@ void keyBoardfunc(unsigned char key, int x, int y){
 int main(int argc, char** argv)
 {
 
-	matriz_s.open("saida.txt", ifstream::in);
-
-	virilha_d.set_rotacao_z(-90.0f);
-	virilha_e.set_rotacao_z(-90.0f);
-
-	tornozelo_d.set_rotacao_y(-90.0f);
-	tornozelo_e.set_rotacao_y(-90.0f);
-
-	ombro_d.set_rotacao_z(90.0f);
-	ombro_e.set_rotacao_z(-90.0f);
-
-	//abrir perna(eixo z)
-	//levantar perna(eixo x)
-	// virilha_d.set_rotacao_x(-45.0f);
-    //
-	// joelho_d.set_rotacao_y(90.0f);
-
-	//cintura.set_rotacao_y(90.0f);
-
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(640,480);
-	glutCreateWindow("Visualizacao 3D");
+	glutCreateWindow("Animation Maker");
 	glutDisplayFunc(Desenha);
     glutReshapeFunc(AlteraTamanhoJanela);
 	glutMouseFunc(GerenciaMouse);
