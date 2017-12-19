@@ -15,7 +15,7 @@ GLfloat angle, fAspect;
 float raio_juntas = 2.0f;
 int joelho_sentido = 0;
 int anim_pos = 0;
-const int max_frames = 60;
+const int max_frames = 62;
 
 int CTRL = 0;
 int ALT = 0;
@@ -638,7 +638,7 @@ void DesenhaEixos(void)
 // Função callback chamada para fazer o desenho
 void Desenha(void){
 
-	usleep(20000);
+	usleep(80000);
 
 	if(play){
 		if(anim_pos <= (max_frames - 1)){
